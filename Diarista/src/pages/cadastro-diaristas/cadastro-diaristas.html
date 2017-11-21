@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sou um(a) Diarista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="salvar()">
+    <ion-list *ngIf="passo === 1">
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.nome" name="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>CPF</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.cpf" name="cpf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Número de Registro no Sindicato</ion-label>
+        <ion-input type="number" [(ngModel)]="diarista.sindicato" name="pis"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="passo === 2">
+      <ion-item>
+        <button ion-button style="width:50%" (click)="escolherFoto()">Foto da Galeria</button>
+        <button ion-button style="width:50%" (click)="tirarFoto()">Tirar Foto</button>
+      </ion-item>
+      <img [src]="base64Image" *ngIf="base64Image" />
+    </ion-list>
+
+    <ion-list *ngIf="passo === 3">
+      <ion-item>
+        <ion-label floating>CEP</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.cep" name="cep"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Endereço</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.endereco" name="endereco"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Bairro</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.bairro" name="bairro"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="passo === 4">
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" required [(ngModel)]="recomendacao.nome" name="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Telefone para Contato</ion-label>
+        <ion-input type="text" required [(ngModel)]="recomendacao.contato" name="contato"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <button ion-button full (click)="addRecomendacao()">Adicionar Recomendação</button>
+      </ion-item>
+
+      <ion-item-sliding *ngFor="let item of listRecomendacoes">
+        <ion-item  (click)="edit(item)" *ngIf="listRecomendacoes.length > 0">
+          {{item.nome}} - {{item.contato}}
+        </ion-item>
+
+        <ion-item-options>
+          <button danger (click)="delete(item)">Excluir</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <button *ngIf="passo != 4" [disabled]="!formOk()" ion-button full (click)="avancar()">Avançar</button>
+    <button *ngIf="passo === 4 && listRecomendacoes.length >= 3" ion-button full type="submit">Enviar Cadastro</button>
+  </form>
+</ion-content>
