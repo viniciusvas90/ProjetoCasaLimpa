@@ -13,7 +13,15 @@
       </ion-item>
       <ion-item>
         <ion-label floating>CPF</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.cpf" name="cpf"></ion-input>
+        <ion-input type="number" required [(ngModel)]="diarista.cpf" name="cpf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Telefone para contato</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.telefone" name="telefone"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>E-mail</ion-label>
+        <ion-input type="text" required [(ngModel)]="diarista.email" name="email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Número de Registro no Sindicato</ion-label>
@@ -32,7 +40,7 @@
     <ion-list *ngIf="passo === 3">
       <ion-item>
         <ion-label floating>CEP</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.cep" name="cep"></ion-input>
+        <ion-input type="number" required [(ngModel)]="diarista.cep" name="cep"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Endereço</ion-label>

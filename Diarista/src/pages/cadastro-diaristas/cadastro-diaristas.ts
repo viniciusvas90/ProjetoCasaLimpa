@@ -19,7 +19,7 @@ import { LoadingController } from 'ionic-angular';
 export class CadastroDiaristasPage {
 
   public base64Image: string;
-  diarista = { nome: "", cpf: "", cep: "", endereco: "", bairro: ""};
+  diarista = { nome: "", cpf: "", cep: "", endereco: "", bairro: "", email: "", telefone: "" };
   listRecomendacoes = [];
   passo = 1;
   recomendacao = { nome: "", contato: ""};
@@ -66,9 +66,11 @@ export class CadastroDiaristasPage {
   }
 
   addRecomendacao() {
-    this.listRecomendacoes.push(this.recomendacao);
-    this.recomendacao.nome = "";
-    this.recomendacao.contato = "";
+    var item = this.recomendacao;
+    this.recomendacao = { nome: "", contato: ""};
+    this.listRecomendacoes.push(item);
+    //this.recomendacao.nome = "";
+    //this.recomendacao.contato = "";
       /*if (data) {
         this.dao.insert(data, (recomendacao) => {
           this.listRecomendacoes.push(recomendacao);
@@ -122,13 +124,13 @@ export class CadastroDiaristasPage {
     });
   }
 
-  formOk() : void {
+  formOk() : boolean {
     switch (this.passo) {
       case 1:
-        if (this.diarista.nome && this.diarista.cpf) return true;
+        if (this.diarista.nome && this.diarista.cpf && this.diarista.email && this.diarista.telefone) return true;
         return false;
       case 2:
-        if (this.base64Image) return true;
+        if (this.base64Image || this.platform.is('core')) return true;
         return false;
       case 3:
         if (this.diarista.cep && this.diarista.endereco && this.diarista.bairro) return true;
