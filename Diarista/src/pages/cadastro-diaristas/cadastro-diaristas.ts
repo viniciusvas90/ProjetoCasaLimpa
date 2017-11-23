@@ -19,7 +19,7 @@ import { LoadingController } from 'ionic-angular';
 export class CadastroDiaristasPage {
 
   public base64Image: string;
-  diarista = { nome: "", cpf: "", cep: "", endereco: "", bairro: "", email: "", telefone: "" };
+  diarista = { nome: "", cpf: "", cep: "", endereco: "", bairro: "", numero : "", email: "", telefone: "" };
   listRecomendacoes = [];
   passo = 1;
   recomendacao = { nome: "", contato: ""};
@@ -133,7 +133,7 @@ export class CadastroDiaristasPage {
         if (this.base64Image || this.platform.is('core')) return true;
         return false;
       case 3:
-        if (this.diarista.cep && this.diarista.endereco && this.diarista.bairro) return true;
+        if (this.diarista.cep && this.diarista.endereco && this.diarista.bairro && this.diarista.numero) return true;
         return false;
       default:
         return false;
