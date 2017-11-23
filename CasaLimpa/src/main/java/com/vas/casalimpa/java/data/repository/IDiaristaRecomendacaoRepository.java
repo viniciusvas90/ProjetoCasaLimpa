@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vas.casalimpa.data.repository;
+package com.vas.casalimpa.java.data.repository;
 
-import com.vas.casalimpa.data.model.DiaristaRecomendacao;
+import com.vas.casalimpa.java.data.model.DiaristaRecomendacao;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

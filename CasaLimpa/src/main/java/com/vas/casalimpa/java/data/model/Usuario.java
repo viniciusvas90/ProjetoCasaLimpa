@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vas.casalimpa.data.model;
+package com.vas.casalimpa.java.data.model;
 
-import com.vas.casalimpa.utils.UtilVas;
+import com.vas.casalimpa.java.utils.UtilVas;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

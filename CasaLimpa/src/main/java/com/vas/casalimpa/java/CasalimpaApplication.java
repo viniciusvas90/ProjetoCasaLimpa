@@ -1,6 +1,6 @@
-package com.vas.casalimpa;
+package com.vas.casalimpa.java;
 
-import com.vas.casalimpa.data.repository.IDiaristaRepository;
+import com.vas.casalimpa.java.data.repository.IDiaristaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

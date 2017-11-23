@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vas.casalimpa.data.repository;
+package com.vas.casalimpa.java.data.repository;
 
-import com.vas.casalimpa.data.model.Endereco;
+import com.vas.casalimpa.java.data.model.Diarista;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -13,7 +13,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  *
  * @author Vinicius
  */
-@RepositoryRestResource(collectionResourceRel = "endereco", path = "endereco")
-public interface IEnderecoRepository extends PagingAndSortingRepository<Endereco, Integer> {
+@RepositoryRestResource(collectionResourceRel = "diarista", path = "diarista")
+public interface IDiaristaRepository extends PagingAndSortingRepository<Diarista, Integer> {
     
 }
