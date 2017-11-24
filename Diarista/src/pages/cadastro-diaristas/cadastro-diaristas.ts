@@ -3,6 +3,7 @@ import { IonicPage, ToastController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { DiaristasProvider } from '../../providers/diaristas/diaristas';
 
 /**
  * Generated class for the DiaristasPage page.
@@ -33,7 +34,11 @@ export class CadastroDiaristasPage {
     sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
   }
 
-  constructor(private toastCtrl: ToastController, private camera: Camera, public platform: Platform, public loadingCtrl: LoadingController) {
+  constructor(private toastCtrl: ToastController,
+              private camera: Camera,
+              public platform: Platform,
+              public loadingCtrl: LoadingController,
+              private diaristasProvider: DiaristasProvider) {
   }
 
   ionViewDidLoad() {
@@ -66,6 +71,14 @@ export class CadastroDiaristasPage {
   }
 
   addRecomendacao() {
+    if (this.recomendacao.nome.trim() == '') {
+      alert('Informe o nome');
+      return;
+    }
+    if (this.recomendacao.contato.trim() == '') {
+      alert('Informe o telefone');
+      return;
+    }
     var item = this.recomendacao;
     this.recomendacao = { nome: "", contato: ""};
     this.listRecomendacoes.push(item);
@@ -141,7 +154,20 @@ export class CadastroDiaristasPage {
   }
 
   salvar() : void {
-    console.log(this.diarista);
+    alert('ok');
+    this.diaristasProvider.create(this.diarista).then(
+      (result: any) => {
+        this.toastCtrl.create({
+          message: 'Solicitação de cadastro como Diarista enviado.', position: 'bottom', duration: 3000
+        });
+      }
+    ).catch(
+      (error: any) => {
+        this.toastCtrl.create({
+          message: 'Erro ao Solicitar cadastro como Diarista.', position: 'bottom', duration: 3000
+        });
+      }
+    );
   }
 
 }
