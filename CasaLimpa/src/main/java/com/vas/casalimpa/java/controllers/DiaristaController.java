@@ -49,7 +49,7 @@ public class DiaristaController {
             recomendacao.setDiarista(novo);
         }
         diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
-        return new ResponseEntity<Diarista>(novo, HttpStatus.CREATED);
+            return new ResponseEntity<Diarista>(novo, HttpStatus.CREATED);
     }
     
     @RequestMapping(value = "/diaristas/pendentes", method = RequestMethod.GET)
