@@ -11,19 +11,38 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DiaristasProvider {
 
-  private API_URI = 'https://localhost:8080/diarista/';
+  private API_URI = 'http://10.144.8.137:8080/diaristas';
 
   constructor(public http: Http) {
-    console.log('Hello DiaristasProvider Provider');
+    console.log('DiaristasProvider');
   }
 
   create(data) {
+    console.log('create(data)');
     return new Promise((resolve, reject) => {
+      console.log('Promise: '+data.nome);
       this.http.post(this.API_URI, data)
         .subscribe((result: any) => {
+          console.log(result.json());
           resolve(result.json());
         },
         (error) => {
+          console.log(error.message);
+          reject(error.json());
+        });
+    });
+  }
+
+  getAllPendant() {
+    console.log('getAllPendant()');
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URI+"/pendentes")
+        .subscribe((result: any) => {
+          console.log('sucesso');
+          resolve(result.json());
+        },
+        (error) => {
+          console.log('erro');
           reject(error.json());
         });
     });

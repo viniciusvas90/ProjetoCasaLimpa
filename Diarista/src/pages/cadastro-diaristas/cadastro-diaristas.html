@@ -15,6 +15,10 @@
         <ion-input type="number" required [(ngModel)]="diarista.cpf" name="cpf"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label floating>RG</ion-label>
+        <ion-input type="number" required [(ngModel)]="diarista.rg" name="rg"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label floating>Telefone para contato</ion-label>
         <ion-input type="text" required [(ngModel)]="diarista.telefone" name="telefone"></ion-input>
       </ion-item>
@@ -39,19 +43,19 @@
     <ion-list *ngIf="passo === 3">
       <ion-item>
         <ion-label floating>CEP</ion-label>
-        <ion-input type="number" required [(ngModel)]="diarista.cep" name="cep"></ion-input>
+        <ion-input type="number" required [(ngModel)]="diarista.endereco.cep" name="cep"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Endereço</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.endereco" name="endereco"></ion-input>
+        <ion-input type="text" required [(ngModel)]="diarista.endereco.endereco" name="endereco"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Número</ion-label>
-        <ion-input type="number" required [(ngModel)]="diarista.numero" name="numero"></ion-input>
+        <ion-input type="number" required [(ngModel)]="diarista.endereco.numero" name="numero"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Bairro</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.bairro" name="bairro"></ion-input>
+        <ion-input type="text" required [(ngModel)]="diarista.endereco.bairro" name="bairro"></ion-input>
       </ion-item>
     </ion-list>
 
@@ -82,4 +86,6 @@
 
     <button *ngIf="passo != 4" [disabled]="!formOk()" ion-button full (click)="avancar()">Avançar</button>
     <button *ngIf="passo === 4 && listRecomendacoes.length >= 3" ion-button full (click)="salvar()">Enviar Cadastro</button>
+
+    <!--<button  ion-button full (click)="getAllPendant()">Enviar Cadastro</button>-->
 </ion-content>

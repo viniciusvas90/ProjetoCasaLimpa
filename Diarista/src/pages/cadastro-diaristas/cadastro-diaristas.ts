@@ -4,6 +4,7 @@ import { Camera } from '@ionic-native/camera';
 import { Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { DiaristasProvider } from '../../providers/diaristas/diaristas';
+import 'rxjs/add/operator/catch';
 
 /**
  * Generated class for the DiaristasPage page.
@@ -20,7 +21,13 @@ import { DiaristasProvider } from '../../providers/diaristas/diaristas';
 export class CadastroDiaristasPage {
 
   public base64Image: string;
-  diarista = { nome: "", cpf: "", cep: "", endereco: "", bairro: "", numero : "", email: "", telefone: "" };
+  diarista = {
+    nome: "", cpf: "", email: "", telefone: "",
+    endereco: {
+      bairro: "", numero : "", cep: "", endereco: ""
+    },
+    recomendacoes: []
+  };
   listRecomendacoes = [];
   passo = 1;
   recomendacao = { nome: "", contato: ""};
@@ -45,6 +52,9 @@ export class CadastroDiaristasPage {
     console.log('ionViewDidLoad CadastroDiaristasPage');
     this.initializeBackButtonCustomHandler();
     this.list();
+    this.toastCtrl.create({
+      message: 'Solicitação de cadastro como Diarista enviado. Código: ', position: 'bottom', duration: 3000
+    });
   }
 
   ionViewWillLeave() {
@@ -146,28 +156,46 @@ export class CadastroDiaristasPage {
         if (this.base64Image || this.platform.is('core')) return true;
         return false;
       case 3:
-        if (this.diarista.cep && this.diarista.endereco && this.diarista.bairro && this.diarista.numero) return true;
+        if (this.diarista.endereco.cep && this.diarista.endereco.endereco && this.diarista.endereco.bairro && this.diarista.endereco.numero) return true;
         return false;
       default:
         return false;
     }
   }
 
-  salvar() : void {
-    alert('ok');
+  salvar() {
+    this.diarista.recomendacoes = this.listRecomendacoes;
+    console.log('salvar diarista:'+ JSON.stringify(this.diarista));
     this.diaristasProvider.create(this.diarista).then(
       (result: any) => {
+        console.log('sucesso retornado do provider: '+JSON.stringify(result));
         this.toastCtrl.create({
-          message: 'Solicitação de cadastro como Diarista enviado.', position: 'bottom', duration: 3000
+          message: 'Solicitação de cadastro como Diarista enviado. Código: '+result.id, position: 'bottom', duration: 3000
         });
       }
     ).catch(
       (error: any) => {
+        console.log('erro retornado do provider:'+ JSON.stringify(error));
         this.toastCtrl.create({
-          message: 'Erro ao Solicitar cadastro como Diarista.', position: 'bottom', duration: 3000
+          message: 'Erro ao Solicitar cadastro como Diarista: '+error.error, position: 'bottom', duration: 3000
         });
       }
     );
   }
 
+  //listar diaristas com cadastro pendente
+  getAllPendant() {
+    console.log('listar diaristas com cadastro pendente');
+    this.diaristasProvider.getAllPendant()
+      .then((result: any) => {
+        console.log(JSON.stringify(result));
+      })
+      .catch((error: any) => {
+        console.log('status erro:'+ error.status);
+        alert('status erro:'+ JSON.stringify(error));
+        this.toastCtrl.create({
+          message: 'Erro ao listar Diaristas com cadastro pendente.', position: 'bottom', duration: 3000
+        });
+      })
+  }
 }
