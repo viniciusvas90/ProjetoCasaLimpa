@@ -188,11 +188,10 @@ export class CadastroDiaristasPage {
     console.log('listar diaristas com cadastro pendente');
     this.diaristasProvider.getAllPendant()
       .then((result: any) => {
-        console.log(JSON.stringify(result));
+        console.log('sucesso retornado do provider: '+JSON.stringify(result));
       })
       .catch((error: any) => {
-        console.log('status erro:'+ error.status);
-        alert('status erro:'+ JSON.stringify(error));
+        console.log('erro retornado do provider:'+ JSON.stringify(error));
         this.toastCtrl.create({
           message: 'Erro ao listar Diaristas com cadastro pendente.', position: 'bottom', duration: 3000
         });
