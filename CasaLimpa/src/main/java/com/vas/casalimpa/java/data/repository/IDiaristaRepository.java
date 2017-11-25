@@ -6,6 +6,7 @@
 package com.vas.casalimpa.java.data.repository;
 
 import com.vas.casalimpa.java.data.model.Diarista;
+import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -15,5 +16,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "diarista", path = "diarista")
 public interface IDiaristaRepository extends PagingAndSortingRepository<Diarista, Integer> {
-    
+    List<Diarista> findByAutorizadoOrderByDataCadastro(Boolean autorizado);
 }

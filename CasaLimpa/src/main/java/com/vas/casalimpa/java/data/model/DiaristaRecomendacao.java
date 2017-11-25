@@ -5,6 +5,9 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,10 +28,12 @@ public class DiaristaRecomendacao {
     private int id;
     @Column(nullable = false)
     private String nome;
+    @JsonProperty(value = "contato")
     @Column(nullable = false, length = 15)
     private String telefone;
     
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private Diarista diarista;
 
     public String getNome() {

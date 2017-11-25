@@ -5,6 +5,7 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class Endereco {
     private String bairro;
 
     @OneToOne(mappedBy = "endereco", optional = false)
+    @JsonIgnore
     private Diarista diarista;
 
     public int getCep() {

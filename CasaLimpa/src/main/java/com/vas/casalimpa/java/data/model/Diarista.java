@@ -5,16 +5,17 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.persistence.OneToOne;
 public class Diarista {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue()
     private int id;
     @Column(nullable = false)
     private String nome;
@@ -36,17 +37,26 @@ public class Diarista {
     private String telefone;
     private String sindicato;
     private Boolean autorizado;
+    @Column(updatable = false, nullable = false)
+    private Date dataCadastro;
+    @Column(insertable = false)
+    private Date dataAutorizado;
 
-    @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "diarista")
     private Set<DiaristaRecomendacao> recomendacoes;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(nullable = false)
     private Endereco endereco;
 
     @OneToOne(optional = true)
     @JoinColumn(unique = true)
     private Usuario usuario;
+
+    @PrePersist
+    void onInsert() {
+        this.dataCadastro = new Date();
+    }
 
     public String getNome() {
         return nome;
@@ -118,6 +128,16 @@ public class Diarista {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public String getDataCadastro() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(dataCadastro);
+    }
+
+    public String getDataAutorizado() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return dataAutorizado != null ? sdf.format(dataAutorizado) : null;
     }
 
 }
