@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DiaristasProvider {
 
-  private API_URI = 'http://10.144.8.137:8080/diaristas';
+  private API_URI = 'http://10.70.34.238:8100/diaristas';
 
   constructor(public http: Http) {
     console.log('DiaristasProvider');
