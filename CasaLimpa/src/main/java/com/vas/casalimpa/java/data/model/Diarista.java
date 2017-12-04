@@ -5,6 +5,7 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,9 +37,13 @@ public class Diarista {
     private String telefone;
     private String sindicato;
     private Boolean autorizado;
+    private Date dataAutorizado;
 
     @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
     private Set<DiaristaRecomendacao> recomendacoes;
+
+    @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
+    private Set<Avaliacao> avaliacoes;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(nullable = false)
@@ -118,6 +123,22 @@ public class Diarista {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public void setDataAutorizado(Date dataAutorizado) {
+        this.dataAutorizado = dataAutorizado;
+    }
+
+    public Date getDataAutorizado() {
+        return dataAutorizado;
+    }
+
+    public Set<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 
 }
