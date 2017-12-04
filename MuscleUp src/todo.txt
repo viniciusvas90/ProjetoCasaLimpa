@@ -1,0 +1,7 @@
+- Acrescentar atributo "Descrição" aos exercícios
+- Acrescentar "Comentários" aos worksets-exercises
+- Colocar SearchBar em exercícios
+- Usar gestures (tap) pra aumentar ou diminuir o número de repetições realizadas
+- colocar floating nos inputs
+- implementar logout
+- implementar erros de login

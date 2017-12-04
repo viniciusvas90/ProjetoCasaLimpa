@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>
+        Ficha de Treino
+      </ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of listTreinos">
+      <ion-item  (click)="open(item)">
+        Treino: {{item.workset_description}}
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

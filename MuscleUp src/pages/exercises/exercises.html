@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>
+        Exercicios
+      </ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of listExercicios">
+      <ion-item  (click)="edit(item)">
+        {{item.exercise}}
+      </ion-item>
+
+      <ion-item-options>
+        <button danger (click)="delete(item)">Excluir</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="insert()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,21 @@
+<div *ngIf="showMenu()">
+  <ion-menu [content]="menu" persistent="true">
+    <ion-content>
+      <ion-item>
+        <ion-title>
+          MuscleUp
+        </ion-title>
+      </ion-item>
+      <ion-list>
+        <button ion-item (click)="openPage('home')" menuClose>Ficha de Treino</button>
+        <button ion-item (click)="openPage('treino')" menuClose>Treinos</button>
+        <button ion-item (click)="openPage('bodyMeasurements')" menuClose>Avaliação Física</button>
+        <button ion-item (click)="openPage('exercicio')" menuClose>Exercícios</button>
+        <button ion-item (click)="logout()" menuClose>
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+</div>
+<ion-nav [root]="rootPage" #menu></ion-nav>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastrar Treino</ion-title>
+    <ion-buttons start>
+      <button ion-button clear color="secondary" (click)="cancel()">Cancelar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-treino">
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-input type="text" placeholder="Digite aqui..." [(ngModel)]="treino.workset_description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Data de Início</ion-label>
+      <ion-input type="date" placeholder="Digite aqui..." [(ngModel)]="treino.letter"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Data de Final</ion-label>
+      <ion-input type="date" placeholder="Digite aqui..." [(ngModel)]="treino.dt_final_workset"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ativo</ion-label>
+      <ion-checkbox [(ngModel)]="treino.in_ativo"></ion-checkbox>
+    </ion-item>
+    <ion-label padding stacked>Exercícios</ion-label>
+    <ion-item-sliding *ngFor="let item of treino.lista_exercises">
+      <ion-item  (click)="edit(item)">
+        {{item.exercise_id}} - {{item.exercise}}: {{item.series_number}}x{{item.repetitions_number}} / {{item.charge}} Kg / decanso de {{item.resting_time}} min
+      </ion-item>
+      <ion-item-options>
+        <button danger (click)="delete(item)">Excluir</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item>
+      <button ion-button light (click)="addExercicio()">+ Adicionar Exercício</button>
+    </ion-item>
+  </ion-list>
+  <button ion-button full (click)="salvar()">Salvar</button>
+</ion-content>

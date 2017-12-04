@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-buttons start>
+    <button (click)="cancel()"><ion-icon name="close"></ion-icon></button>
+  </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-title>Treino: {{treino.workset_description}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="modal-lista-treinos">
+  <ion-list>
+    <ion-item>
+      <ion-label primary>Descrição</ion-label>
+      <ion-input type="text" readOnly="true" [(ngModel)]="treino.workset_description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Data de Início</ion-label>
+      <ion-input type="date" readOnly="true" [(ngModel)]="treino.letter"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Data de Final</ion-label>
+      <ion-input type="date" readOnly="true" [(ngModel)]="treino.dt_final_workset"></ion-input>
+    </ion-item>
+    <ion-label stacked>Exercícios</ion-label>
+    <ion-item-sliding *ngFor="let item of treino.lista_exercises">
+      <ion-item  (click)="edit(item)">
+        {{item.exercise}}: {{item.series_number}}x{{item.repetitions_number}} / {{item.charge}} Kg / decanso de {{item.resting_time}} min
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

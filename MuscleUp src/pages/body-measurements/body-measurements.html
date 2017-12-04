@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>
+        Avaliação Física
+      </ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label primary floating>Data da Avaliação</ion-label>
+      <ion-input type="date" readOnly="true" [(ngModel)]="lastBodyMeasurements.body_measurements_date"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Idade</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.age"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Altura</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.height"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Peso</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Braço Direito</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.right_arm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Braço Esquerdo</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.left_arm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Ante-braço Direito</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.right_forearm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Ante-braço Esquerdo</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.left_forearm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Ombros</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.shoulders"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Torax</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.chest"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Coxa Direita</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.right_thigh"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Coxa Esquerda</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.left_thigh"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Panturrilha Direita</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.right_calf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Panturrilha Esquerda</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.left_calf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Cintura</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.waist"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary floating>Glúteos</ion-label>
+      <ion-input type="number" readOnly="true" [(ngModel)]="lastBodyMeasurements.waist"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button fab fab-bottom fab-right fab-fixed (click)="insert()"><ion-icon name="create"></ion-icon></button>
+</ion-content>

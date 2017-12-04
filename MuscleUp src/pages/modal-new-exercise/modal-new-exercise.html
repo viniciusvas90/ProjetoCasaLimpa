@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastrar Exercicio</ion-title>
+    <ion-buttons start>
+      <button ion-button clear color="light" (click)="cancel()">Cancelar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="modal-exercicio" secondary>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-input type="text" placeholder="Exercício..." [(ngModel)]="exercicio.exercise"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-input type="text" placeholder="Exercício..." [(ngModel)]="exercicio.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-input type="text" placeholder="Exercício..." [(ngModel)]="exercicio.main_muscle"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Descrição</ion-label>
+      <ion-input type="text" placeholder="Exercício..." [(ngModel)]="exercicio.other_muscles"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full (click)="salvar()">Salvar</button>
+</ion-content>

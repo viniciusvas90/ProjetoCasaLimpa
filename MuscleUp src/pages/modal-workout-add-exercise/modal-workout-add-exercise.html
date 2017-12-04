@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-buttons start>
+    <button (click)="cancel()"><ion-icon name="close"></ion-icon></button>
+  </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-title>Adicionar Exercicio ao Treino</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="modal-treino-exercicios">
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Exercício</ion-label>
+      <ion-select type="text" [(ngModel)]="treinoExercicio.exercise_id">
+        <ion-option *ngFor="let item of exercicios" value="{{item.id}}">
+          {{item.id}} - {{item.exercise}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Número de Séries</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="treinoExercicio.series_number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Número de Repetições</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="treinoExercicio.repetitions_number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Tempo de Descanso</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="treinoExercicio.resting_time"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Carga a ser utilizada</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="treinoExercicio.charge"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button block light (click)="salvar()">Salvar</button>
+</ion-content>

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastrar Ficha de Treino</ion-title>
+    <ion-buttons start>
+      <button ion-button clear color="light" (click)="cancel()">Cancelar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="modal-exercicio" secondary>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Dê um nome a sua Ficha de Treinos</ion-label>
+      <ion-input type="text" [(ngModel)]="ficha.workssheet_description"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full (click)="salvar()">Salvar</button>
+</ion-content>

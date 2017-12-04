@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-buttons start>
+    <button (click)="cancel()"><ion-icon name="close"></ion-icon></button>
+  </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastrar Avaliação Física</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="modal-body_measurements">
+  <ion-list>
+    <ion-item>
+      <ion-label primary>Data da Avaliação:</ion-label>
+      <ion-input type="date" placeholder="31/12/2017" [(ngModel)]="body_measurements.body_measurements_date"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Altura:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.height"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Peso:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Braço Direito:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.right_arm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Braço Esquerdo:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.left_arm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Ante-braço Direito:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.right_forearm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Ante-braço Esquerdo:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.left_forearm"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Ombros:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.shoulders"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Torax:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.chest"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Coxa Direita:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.right_thigh"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Coxa Esquerda:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.left_thigh"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Panturrilha Direita:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.right_calf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Panturrilha Esquerda:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.left_calf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label primary>Cintura:</ion-label>
+      <ion-input type="number" placeholder="Digite aqui..." [(ngModel)]="body_measurements.waist"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button block light (click)="salvar(body_measurements);">Salvar</button>
+</ion-content>
