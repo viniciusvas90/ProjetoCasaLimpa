@@ -5,7 +5,6 @@
  */
 package com.vas.casalimpa.java.data.model;
 
-import com.vas.casalimpa.java.utils.UtilVas;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  *
@@ -32,6 +32,8 @@ public class Usuario {
     private String senha;
     @Enumerated(EnumType.ORDINAL)
     private PerfilEnum perfil;
+    @Transient    
+    private String token;
 
     public int getId() {
         return id;
@@ -62,7 +64,7 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        this.senha = UtilVas.encrypt(senha);
+        this.senha = senha;
     }
 
     public PerfilEnum getPerfil() {
@@ -71,6 +73,14 @@ public class Usuario {
 
     public void setPerfil(PerfilEnum perfil) {
         this.perfil = perfil;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 
 }
