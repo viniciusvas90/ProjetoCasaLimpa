@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vas.casalimpa.java.data.controller;
+package com.vas.casalimpa.java.controllers;
 
 import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import com.vas.casalimpa.java.data.model.Usuario;
 import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
-import com.vas.casalimpa.java.utils.JWTUtil;
-import com.vas.casalimpa.java.utils.UtilVas;
 import io.jsonwebtoken.Jwts;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -66,11 +64,11 @@ public class UserController {
             throw new ServletException("Usuário não encontrado.");
         }
 
-        if (UtilVas.encrypt(password).equals(user.getSenha())) {
+        if (this.bCryptPasswordEncoder.encode(password).equals(user.getSenha())) {
             throw new ServletException("Usuário ou senha inválidos.");
         }
         
-        user.setToken(JWTUtil.create(userName));
+        //user.setToken(JWTUtil.create(userName));
 
         return user;
     }
@@ -82,8 +80,8 @@ public class UserController {
     }
     
     @RequestMapping(value = "/logado", method = RequestMethod.GET)
-    public Usuario usuarioLogado() {
-        String token  = 
+    public String usuarioLogado() {
+        return "{teste}";
     }
     
     /**
