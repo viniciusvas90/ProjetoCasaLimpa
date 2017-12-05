@@ -8,6 +8,7 @@ package com.vas.casalimpa.java.data.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,10 @@ public class Diarista {
     private Set<DiaristaRecomendacao> recomendacoes;
 
     @OneToOne(optional = false)
+    @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
+    private Set<Avaliacao> avaliacoes;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(nullable = false)
     private Endereco endereco;
 
@@ -129,7 +134,7 @@ public class Diarista {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
+    
     public String getDataCadastro() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return sdf.format(dataCadastro);
@@ -138,6 +143,18 @@ public class Diarista {
     public String getDataAutorizado() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return dataAutorizado != null ? sdf.format(dataAutorizado) : null;
+    }
+        
+    public void setDataAutorizado(Date dataAutorizado) {
+        this.dataAutorizado = dataAutorizado;
+    }
+
+    public Set<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 
 }
