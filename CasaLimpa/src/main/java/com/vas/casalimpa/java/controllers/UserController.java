@@ -5,17 +5,11 @@
  */
 package com.vas.casalimpa.java.controllers;
 
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import com.vas.casalimpa.java.data.model.Usuario;
 import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
-import io.jsonwebtoken.Jwts;
-import java.util.Date;
 import javax.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
