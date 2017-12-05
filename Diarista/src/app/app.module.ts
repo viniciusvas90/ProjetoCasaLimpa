@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [

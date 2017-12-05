@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Storage } from '@ionic/storage';
+import { DatePipe } from '@angular/common';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,10 +13,27 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DiaristasProvider {
 
-  private API_URI = 'http://10.70.34.238:8100/diaristas';
+  private API_URI = 'http://localhost:3000/diaristas';
 
-  constructor(public http: Http) {
+  constructor(public http: Http, private storage: Storage, private datepipe: DatePipe) {
     console.log('DiaristasProvider');
+  }
+
+  public insert(diarista: Diarista) {
+    let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
+    return this.save(key, diarista  );
+  }
+
+  public update(key: string, diarista: Diarista) {
+    return this.save(key, diarista);
+  }
+
+  private save(key: string, diarista: Diarista) {
+    return this.storage.set(key, diarista);
+  }
+
+  public remove(key: string) {
+    return this.storage.remove(key);
   }
 
   create(data) {
@@ -47,4 +66,16 @@ export class DiaristasProvider {
         });
     });
   }
+}
+
+export class Diarista {
+  id : number,
+  nome: string;
+  cpf: string;
+  rg: string;
+  telefone: string;
+  sindicato: string;
+  autorizado: boolean;
+  dataCadastro: Date;
+  dataAutorizado: Date;
 }

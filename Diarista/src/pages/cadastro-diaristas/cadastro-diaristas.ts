@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, Platform, ToastController, LoadingController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { DiaristasProvider } from '../../providers/diaristas/diaristas';
+import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas';
 import 'rxjs/add/operator/catch';
 
 /**
@@ -17,7 +17,7 @@ import 'rxjs/add/operator/catch';
   templateUrl: 'cadastro-diaristas.html',
 })
 export class CadastroDiaristasPage {
-
+  diaristaResponse: Diarista;
   public base64Image: string;
   diarista = {
     nome: "", cpf: "", email: "", telefone: "",
@@ -87,19 +87,6 @@ export class CadastroDiaristasPage {
     var item = this.recomendacao;
     this.recomendacao = { nome: "", contato: ""};
     this.listRecomendacoes.push(item);
-    //this.recomendacao.nome = "";
-    //this.recomendacao.contato = "";
-      /*if (data) {
-        this.dao.insert(data, (recomendacao) => {
-          this.listRecomendacoes.push(recomendacao);
-          let toast = this.toastCtrl.create({
-            message: 'Recomendação inserida com sucesso',
-            duration: 3000,
-            position: 'bottom'
-          });
-          toast.present();
-        })
-      }*/
   }
 
   edit(recomendacao) {
@@ -174,6 +161,24 @@ export class CadastroDiaristasPage {
     this.diaristasProvider.create(this.diarista).then(
       (result: any) => {
         console.log('sucesso retornado do provider: '+JSON.stringify(result));
+
+        this.diaristaResponse.id = result.id;
+        this.diaristaResponse.nome = result.nome;
+        this.diaristaResponse.cpf = result.cpf;
+        this.diaristaResponse.rg = result.rg;
+        this.diaristaResponse.telefone = result.telefone;
+        this.diaristaResponse.sindicato = result.sindicato;
+        this.diaristaResponse.autorizado = result.autorizado;
+        this.diaristaResponse.dataCadastro = result.dataCadastro;
+        this.diaristaResponse.dataAutorizado = result.dataAutorizado;
+        this.diaristasProvider.insert(this.diaristaResponse)
+          .then(() => {
+            console.log("diarista salva");
+          })
+          .catch(() => {
+            console.log("erro ao salvar diarista");
+          });
+
         this.toastCtrl.create({
           message: 'Solicitação de cadastro como Diarista enviado. Código: '+result.id, position: 'center', duration: 3000
         }).present();
