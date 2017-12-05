@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, LoadingController } from 'ionic-angular';
-import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
+//import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 
 @IonicPage()
 @Component({
@@ -14,7 +14,7 @@ export class LoginPage {
   password:string = '';
   name:string = '';
 
-  constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
@@ -81,7 +81,7 @@ export class LoginPage {
         return;
       }
 
-      let details: UserDetails = {'email':this.email, 'password':this.password, 'name':this.name};
+      let details = {'email':this.email, 'password':this.password, 'name':this.name};
       console.log(details);
 
       let loader = this.loadingCtrl.create({

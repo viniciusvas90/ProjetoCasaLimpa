@@ -69,7 +69,7 @@ export class DiaristasProvider {
 }
 
 export class Diarista {
-  id : number,
+  id : number;
   nome: string;
   cpf: string;
   rg: string;
