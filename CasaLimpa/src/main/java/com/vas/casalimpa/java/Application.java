@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class CasaLimpaApplication implements CommandLineRunner {
+public class Application implements CommandLineRunner {
         
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -17,7 +17,7 @@ public class CasaLimpaApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(CasaLimpaApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override
