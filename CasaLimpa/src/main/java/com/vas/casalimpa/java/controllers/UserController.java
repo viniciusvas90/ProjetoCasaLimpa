@@ -9,7 +9,10 @@ import com.vas.casalimpa.java.data.model.Usuario;
 import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
 import javax.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,56 +35,16 @@ public class UserController {
         this.usuarioRepository = usuarioRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-    @PostMapping(value = "/login")
-    public Usuario login(@RequestBody Usuario login) throws ServletException {
-
-        if (login.getEmail() == null && login.getUserName() == null) {
-            throw new ServletException("Informe seu nome de usuário ou email.");
-        }
-        if (login.getSenha() == null) {
-            throw new ServletException("Informe sua senha.");
-        }
-
-        String email = login.getEmail();
-        String userName = login.getUserName();
-        String password = login.getSenha();
-
-        Usuario user = null;
-        if (email != null && !email.isEmpty()) {
-            user = usuarioRepository.FindUsuarioByEmail(email);
-        } else if (userName != null && !userName.isEmpty()) {
-            user = usuarioRepository.FindUsuarioByUserName(userName);
-        }
-
-        if (user == null) {
-            throw new ServletException("Usuário não encontrado.");
-        }
-
-        if (this.bCryptPasswordEncoder.encode(password).equals(user.getSenha())) {
-            throw new ServletException("Usuário ou senha inválidos.");
-        }
-        
-        //user.setToken(JWTUtil.create(userName));
-
-        return user;
-    }
     
     @PostMapping(value = "/register")
     public void register(@RequestBody Usuario user) {
-        user.setSenha(this.bCryptPasswordEncoder.encode(user.getSenha()));
+        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         this.usuarioRepository.save(user);
     }
     
-    @RequestMapping(value = "/logado", method = RequestMethod.GET)
+    @GetMapping(value = "/logado")
     public String usuarioLogado() {
         return "{teste}";
     }
     
-    /**
-     * http://www.totalcross.com/blog/seguranca-com-jwt-e-java/
-     * https://aboullaite.me/spring-boot-token-authentication-using-jwt/
-     * 
-     * https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
-     */
 }

@@ -25,11 +25,11 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private String senha;
+    private String password;
     @Enumerated(EnumType.ORDINAL)
     private PerfilEnum perfil;
     @Transient    
@@ -43,12 +43,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getEmail() {
@@ -59,12 +59,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public PerfilEnum getPerfil() {

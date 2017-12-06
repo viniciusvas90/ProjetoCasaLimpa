@@ -46,7 +46,6 @@ public class Diarista {
     @OneToMany(mappedBy = "diarista")
     private Set<DiaristaRecomendacao> recomendacoes;
 
-    @OneToOne(optional = false)
     @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
     private Set<Avaliacao> avaliacoes;
 

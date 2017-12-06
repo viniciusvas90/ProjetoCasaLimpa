@@ -7,8 +7,8 @@ package com.vas.casalimpa.java;
 
 import com.vas.casalimpa.java.security.JWTAuthenticationFilter;
 import com.vas.casalimpa.java.security.JWTAuthorizationFilter;
+import static com.vas.casalimpa.java.security.SecurityConstants.SIGN_IN_URL;
 import static com.vas.casalimpa.java.security.SecurityConstants.SIGN_UP_URL;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -33,6 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    public WebSecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
