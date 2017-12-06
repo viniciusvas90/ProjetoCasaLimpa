@@ -1,0 +1,11 @@
+http://www.totalcross.com/blog/seguranca-com-jwt-e-java/
+https://aboullaite.me/spring-boot-token-authentication-using-jwt/
+https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc
+https://imasters.com.br/desenvolvimento/autenticacao-com-jwt-no-spring-boot/?trace=1519021197&source=single
+https://github.com/OKaluzny/springboot-rest-api-angularjs-https/blob/master/src/main/resources/static/js/service/user_service.js
+http://www.fabricadecodigo.com/rest-api-ionic/
+https://forum.ionicframework.com/t/best-way-to-transfer-a-picture-it-to-a-server/53326
+https://github.com/apache/cordova-plugin-file-transfer
+https://github.com/dtaalbers/ionic-example-app
+https://www.djamware.com/post/58c1703e80aca7585c808ec1/step-by-step-tutorial-building-ionic-2-rest-api-authentication
