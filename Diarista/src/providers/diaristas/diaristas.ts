@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DiaristasProvider {
 
-  private API_URI = 'http://localhost:3000/diaristas';
+  private API_URI = 'http://localhost:8080/diaristas';
 
   constructor(public http: Http, private storage: Storage, private datepipe: DatePipe) {
     console.log('DiaristasProvider');
@@ -42,11 +42,9 @@ export class DiaristasProvider {
       console.log('Promise: '+data.nome);
       this.http.post(this.API_URI, data)
         .subscribe((result: any) => {
-          console.log(result.json());
           resolve(result.json());
         },
         (error) => {
-          console.log(error.message);
           reject(error.json());
         });
     });

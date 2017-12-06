@@ -24,16 +24,14 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(nullable = false, unique = true)
-    private String username;
     @Column(nullable = false)
+    private String nome;
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.ORDINAL)
     private PerfilEnum perfil;
-    @Transient    
-    private String token;
 
     public int getId() {
         return id;
@@ -41,14 +39,6 @@ public class Usuario {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String userName) {
-        this.username = userName;
     }
 
     public String getEmail() {
@@ -75,12 +65,12 @@ public class Usuario {
         this.perfil = perfil;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public String getNome() {
+        return nome;
     }
 
-    public String getToken() {
-        return token;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }

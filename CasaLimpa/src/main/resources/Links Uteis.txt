@@ -9,7 +9,7 @@ https://forum.ionicframework.com/t/best-way-to-transfer-a-picture-it-to-a-server
 https://github.com/apache/cordova-plugin-file-transfer
 https://github.com/dtaalbers/ionic-example-app
 https://www.djamware.com/post/58c1703e80aca7585c808ec1/step-by-step-tutorial-building-ionic-2-rest-api-authentication
-https://github.com/GoogleCloudPlatform/getting-started-java/tree/master/helloworld-springboot
+https://github.com/GoogleCloudPlatform/getting-started-java/tree/master/helloworld-springboothttps://www.joshmorony.com/using-json-web-tokens-jwt-for-custom-authentication-in-ionic-2-part-2/
 
 db mysql free
 https://www.freemysqlhosting.net/account/?msg=943
@@ -17,3 +17,6 @@ https://www.db4free.net/index.php?language=pt
 https://manage.openshift.com/
 https://www.clearvm.com/#clearvm-pricing
 https://www.heroku.com/
+
+mysqlworkbench online
+https://www.rollapp.com/app/mysqlworkbench

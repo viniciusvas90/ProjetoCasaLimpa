@@ -19,7 +19,7 @@ export class MyApp {
 
       //se não possui cadastro
       if (1==1) {
-        this.rootPage = "CadastroDiaristasPage";
+        this.rootPage = "LoginPage";
       } else {
         this.rootPage = "HomePage";
       }

@@ -10,7 +10,7 @@ package com.vas.casalimpa.java.data.model;
  * @author Vinicius
  */
 public enum PerfilEnum {
-    Diarista(1), Cliente(2), Administrador(0);
+    Cliente(1), Diarista(2), Administrador(0);
     public int valorPerfil;
     PerfilEnum(int valor) {
         valorPerfil = valor;

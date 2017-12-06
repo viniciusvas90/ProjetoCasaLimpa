@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, LoadingController } from 'ionic-angular';
-//import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
+import { IonicPage, NavController, ToastController, LoadingController } from 'ionic-angular';
+import { UsersProvider } from '../../providers/users/users';
 
 @IonicPage()
 @Component({
@@ -10,114 +10,75 @@ import { IonicPage, NavController, AlertController, LoadingController } from 'io
 export class LoginPage {
 
   showLogin:boolean = true;
-  email:string = '';
-  password:string = '';
-  name:string = '';
+  model: User;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
-
-  ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController,
+              public loadingCtrl:LoadingController,
+              private usersProvider: UsersProvider) {
+    this.model = new User();
+    this.model.email = '';
+    this.model.password = '';
+    this.model.nome = '';
   }
 
-  /*
-  for both of these, if the right form is showing, process the form,
-  otherwise show it
-  */
+  ionViewDidLoad() {  }
+
   doLogin() {
-    if(this.showLogin) {
-      console.log('process login');
-
-      if(this.email === '' || this.password === '') {
-        let alert = this.alertCtrl.create({
-          title:'Register Error',
-          subTitle:'All fields are rquired',
-          buttons:['OK']
-        });
-        alert.present();
-        return;
-      }
-
-      let loader = this.loadingCtrl.create({
-        content: "Logging in..."
-      });
-      loader.present();
-
-      this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
-        console.log('ok i guess?');
-        loader.dismiss();
-        this.navCtrl.setRoot("HomePage");
-      }, (err) => {
-        loader.dismiss();
-        console.log(err.message);
-
-        let errors = '';
-        if(err.message === 'UNPROCESSABLE ENTITY') errors += 'Email isn\'t valid.<br/>';
-        if(err.message === 'UNAUTHORIZED') errors += 'Password is required.<br/>';
-
-        let alert = this.alertCtrl.create({
-          title:'Login Error',
-          subTitle:errors,
-          buttons:['OK']
-        });
-        alert.present();
-      });
-    } else {
-      this.showLogin = true;
-    }
+    this.showLogin = true;
   }
 
   doRegister() {
-    if(!this.showLogin) {
-      console.log('process register');
-
-      if(this.name === '' || this.email === '' || this.password === '') {
-        let alert = this.alertCtrl.create({
-          title:'Register Error',
-          subTitle:'All fields are rquired',
-          buttons:['OK']
-        });
-        alert.present();
-        return;
-      }
-
-      let details = {'email':this.email, 'password':this.password, 'name':this.name};
-      console.log(details);
-
-      let loader = this.loadingCtrl.create({
-        content: "Registering your account..."
-      });
-      loader.present();
-
-      this.auth.signup(details).then(() => {
-        console.log('ok signup');
-        this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
-          loader.dismiss();
-          this.navCtrl.setRoot("HomePage");
-        });
-
-      }, (err:IDetailedError<string[]>) => {
-        loader.dismiss();
-        let errors = '';
-        for(let e of err.details) {
-          console.log(e);
-          if(e === 'required_email') errors += 'Email is required.<br/>';
-          if(e === 'required_password') errors += 'Password is required.<br/>';
-          if(e === 'conflict_email') errors += 'A user with this email already exists.<br/>';
-          //don't need to worry about conflict_username
-          if(e === 'invalid_email') errors += 'Your email address isn\'t valid.';
-        }
-        let alert = this.alertCtrl.create({
-          title:'Register Error',
-          subTitle:errors,
-          buttons:['OK']
-        });
-        alert.present();
-      });
-
-    } else {
-      this.showLogin = false;
-    }
+    this.showLogin = false;
   }
 
+  login() {
+    console.log('login()');
+    let loader = this.loadingCtrl.create({
+      content: "Logging in..."
+    });
+    loader.present();
+
+    this.usersProvider.login(this.model.email, this.model.password)
+      .then((result: any) => {
+        console.log('login() sucesso');
+        loader.dismiss();
+        this.toastCtrl.create({ message: 'Usuário logado com sucesso. Token: ' + result.token, position: 'botton', duration: 3000 }).present();
+        this.navCtrl.setRoot("HomePage");
+      })
+      .catch((error: any) => {
+        console.log(JSON.stringify(error));
+        loader.dismiss();
+        this.toastCtrl.create({ message: 'Erro ao efetuar login. Erro: ' + error.message, position: 'botton', duration: 3000 }).present();
+      });
+  }
+
+  register() {
+    console.log('register()');
+    let loader = this.loadingCtrl.create({
+      content: "Logging in..."
+    });
+    loader.present();
+
+    this.usersProvider.register(this.model.email, this.model.password, this.model.nome)
+      .then((result: any) => {
+        loader.dismiss();
+        this.toastCtrl.create({ message: 'Usuário criado com sucesso.', position: 'botton', duration: 3000 }).present();
+
+        //Salvar o token no Ionic Storage para usar em futuras requisições.
+        //Redirecionar o usuario para outra tela usando o navCtrl
+        this.doLogin();
+      })
+      .catch((error: any) => {
+        console.log(JSON.stringify(error));
+        loader.dismiss();
+        this.toastCtrl.create({ message: 'Erro ao criar o usuário. Erro: ' + error.message, position: 'botton', duration: 3000 }).present();
+      });
+  }
+}
+
+export class User {
+  email: string;
+  password: string;
+  nome: string;
 }

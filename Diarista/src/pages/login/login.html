@@ -12,12 +12,12 @@
   <div *ngIf="showLogin">
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="model.email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="model.password"></ion-input>
     </ion-item>
   </div>
 
@@ -25,21 +25,23 @@
 
     <ion-item>
       <ion-label floating>Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="name"></ion-input>
+      <ion-input type="text" [(ngModel)]="model.nome"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="model.email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="model.password"></ion-input>
     </ion-item>
   </div>
 
-  <button ion-button color="primary" full (click)="doLogin()">Login</button>
-  <button ion-button color="primary" full (click)="doRegister()">Register</button>
+    <button ion-button color="primary" full (click)="login()" *ngIf="showLogin">Login</button>
+    <button ion-button color="secondary" full (click)="doRegister()" *ngIf="showLogin">Não tenho cadastro</button>
+    <button ion-button color="primary" full (click)="register()" *ngIf="!showLogin">Cadastrar-se</button>
+    <button ion-button color="secondary" full (click)="doLogin()" *ngIf="!showLogin">Já tenho cadastro</button>
 
 </ion-content>

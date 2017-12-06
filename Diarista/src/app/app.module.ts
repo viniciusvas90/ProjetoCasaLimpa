@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { IonicStorageModule } from '@ionic/storage';
+import { UsersProvider } from '../providers/users/users';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DiaristasProvider
+    DiaristasProvider,
+    UsersProvider
   ]
 })
 export class AppModule {}
