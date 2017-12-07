@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
+  https://www.djamware.com/post/58c1703e80aca7585c808ec1/step-by-step-tutorial-building-ionic-2-rest-api-authentication
   Generated class for the UsersProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
@@ -24,13 +25,16 @@ export class UsersProvider {
         nome: nome
       };
 
-      this.http.post(this.API_URI + '/register', data)
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(this.API_URI + '/register', data, {headers: headers})
         .subscribe((result: any) => {
           resolve(result.json());
         },
         (error) => {
           console.log(JSON.stringify(error));
-          reject(error.json());
+          reject(error);
         });
     });
   }
@@ -42,15 +46,32 @@ export class UsersProvider {
         password: password
       };
 
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
       console.log('provider = login():'+ data.email +' '+data.password);
 
-      this.http.post(this.API_URI + '/login', data)
+      this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
           resolve(result.json());
         },
         (error) => {
           console.log(JSON.stringify(error));
-          reject(error.json());
+          reject(error);
+        });
+    });
+  }
+
+  logout(){
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('X-Auth-Token', localStorage.getItem('token'));
+
+      this.http.post(this.API_URI+'/logout', {}, {headers: headers})
+        .subscribe(res => {
+          localStorage.clear();
+        }, (err) => {
+          reject(err);
         });
     });
   }
