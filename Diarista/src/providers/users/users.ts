@@ -53,10 +53,11 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
-          resolve(result.json());
+          console.log("sucesso = "+JSON.stringify(result));
+          resolve(JSON.stringify(result));
         },
         (error) => {
-          console.log(JSON.stringify(error));
+          console.log("erro = "+JSON.stringify(error));
           reject(error);
         });
     });
