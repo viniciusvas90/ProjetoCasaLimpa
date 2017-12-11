@@ -41,13 +41,13 @@ export class LoginPage {
 
     this.usersProvider.login(this.model.email, this.model.password)
       .then((result: any) => {
-        console.log('login() sucesso: '+result.headers.authorization);
+        console.log('login() sucesso: '+result);
         loader.dismiss();
-        this.toastCtrl.create({ message: 'Usuário logado com sucesso. Token: ' + result.token, position: 'botton', duration: 3000 }).present();
+        this.toastCtrl.create({ message: 'Usuário logado com sucesso. Token: ' + result, position: 'botton', duration: 3000 }).present();
         this.navCtrl.setRoot("HomePage");
       })
       .catch((error: any) => {
-        console.log('login() erro');
+        console.log('login() erro: '+JSON.stringify(error));
         loader.dismiss();
         this.toastCtrl.create({ message: 'Erro ao efetuar login. Erro: ' + error.message, position: 'botton', duration: 3000 }).present();
       });

@@ -48,13 +48,13 @@ export class UsersProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-
-      console.log('provider = login():'+ data.email +' '+data.password);
+      //headers.append('Authorization', 'SecretKeyToGenJWTs');
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
-          console.log("sucesso = "+JSON.stringify(result));
-          resolve(JSON.stringify(result));
+          console.log("sucesso = "+JSON.stringify(result.headers).split(':')[7].split('"')[1]);
+          let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+          resolve(token);
         },
         (error) => {
           console.log("erro = "+JSON.stringify(error));
