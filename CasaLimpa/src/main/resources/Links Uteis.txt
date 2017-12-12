@@ -12,6 +12,7 @@ https://www.djamware.com/post/58c1703e80aca7585c808ec1/step-by-step-tutorial-bui
 https://github.com/GoogleCloudPlatform/getting-started-java/tree/master/helloworld-springboothttps://www.joshmorony.com/using-json-web-tokens-jwt-for-custom-authentication-in-ionic-2-part-2/
 https://golb.hplar.ch/p/JWT-Authentication-with-Ionic-2-and-Spring-Boot
 
+
 db mysql free
 https://www.freemysqlhosting.net/account/?msg=943
 https://www.db4free.net/index.php?language=pt
@@ -21,3 +22,6 @@ https://www.heroku.com/
 
 mysqlworkbench online
 https://www.rollapp.com/app/mysqlworkbench
+
+angular
+https://blog.thoughtram.io/angular/2015/05/18/dependency-injection-in-angular-2.html

@@ -33,7 +33,7 @@ export class UsersProvider {
           resolve(result.json());
         },
         (error) => {
-          console.log(JSON.stringify(error));
+          //console.log(JSON.stringify(error));
           reject(error);
         });
     });
@@ -52,12 +52,10 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
-          console.log("sucesso = "+JSON.stringify(result.headers).split(':')[7].split('"')[1]);
-          let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
-          resolve(token);
+          resolve(result);
         },
         (error) => {
-          console.log("erro = "+JSON.stringify(error));
+          //console.log("erro = "+JSON.stringify(error));
           reject(error);
         });
     });

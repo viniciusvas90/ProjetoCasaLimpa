@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { UsersProvider } from '../../providers/users/users';
+import { Util } from '../../util/util';
 
 @IonicPage()
 @Component({
@@ -13,8 +14,8 @@ export class LoginPage {
   model: User;
 
   constructor(public navCtrl: NavController,
-              public toastCtrl: ToastController,
               public loadingCtrl:LoadingController,
+              private util:Util,
               private usersProvider: UsersProvider) {
     this.model = new User();
     this.model.email = '';
@@ -41,15 +42,20 @@ export class LoginPage {
 
     this.usersProvider.login(this.model.email, this.model.password)
       .then((result: any) => {
-        console.log('login() sucesso: '+result);
+        let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+        localStorage.setItem('token', token);
+        console.log('login() sucesso: '+token);
         loader.dismiss();
-        this.toastCtrl.create({ message: 'Usuário logado com sucesso. Token: ' + result, position: 'botton', duration: 3000 }).present();
+        this.util.showToast('Login efetuado com sucesso.', 3000);
         this.navCtrl.setRoot("HomePage");
       })
       .catch((error: any) => {
+        let mensagem = error.status;
+        if (error.status == 500) mensagem = 'Sistema indisponível.';
+        if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
         console.log('login() erro: '+JSON.stringify(error));
         loader.dismiss();
-        this.toastCtrl.create({ message: 'Erro ao efetuar login. Erro: ' + error.message, position: 'botton', duration: 3000 }).present();
+        this.util.showToast('Erro ao efetuar login: ' + mensagem,5000);
       });
   }
 
