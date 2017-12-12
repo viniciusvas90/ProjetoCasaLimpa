@@ -18,10 +18,9 @@ export class MyApp {
       splashScreen.hide();
 
       //se não possui cadastro
-      if (1==1) {
-        this.rootPage = "LoginPage";
-      } else {
-        this.rootPage = "HomePage";
+      this.rootPage = "LoginPage";
+      if (1!=1) {
+        this.nav.push("HomePage");
       }
     });
   }

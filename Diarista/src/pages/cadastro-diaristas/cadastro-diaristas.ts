@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, Platform } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas';
-import { Utils } from '../../Utils';
+import { Utils } from '../../utils';
 import 'rxjs/add/operator/catch';
 
 /**

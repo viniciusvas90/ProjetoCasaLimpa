@@ -10,8 +10,14 @@
 </ion-header>
 
 <ion-content>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <h5 text-center>
+    Parabéns, você já é um usuário do EmpregApp
+  </h5>
+  <h6 text-center>
+      Se você deseja prestar serviço como diarista, toque no botão "Diarista".
+      Se você deseja contratar o serviço de diaristas, toque no botão "Cliente".
+  </h6>
+  <button ion-button full color="dark" (click)="direcionaCadastro('cliente')">Cliente</button>
+  <br/>
+  <button ion-button full color="secondary" (click)="direcionaCadastro('diarista')">Diarista</button>
 </ion-content>

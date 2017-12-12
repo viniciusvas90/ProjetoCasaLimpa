@@ -38,8 +38,8 @@ export class LoginPage {
     this.usersProvider.login(this.model.email, this.model.password)
       .then((result: any) => {
         this.util.dismissLoading();
-        this.util.showToast('Login efetuado com sucesso.', 3000);
-        this.navCtrl.setRoot("HomePage");
+        this.util.showToast('Login efetuado com sucesso.', 3000);        
+        this.navCtrl.push("HomePage");
       })
       .catch((error: any) => {
         let mensagem = error.status;
