@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, Platform } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas';
+import { Utils } from '../../Utils';
 import 'rxjs/add/operator/catch';
 
 /**
@@ -39,10 +40,9 @@ export class CadastroDiaristasPage {
     sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
   }
 
-  constructor(private toastCtrl: ToastController,
+  constructor(private utils: Utils,
               private camera: Camera,
               public platform: Platform,
-              public loadingCtrl: LoadingController,
               private diaristasProvider: DiaristasProvider) {
   }
 
@@ -92,9 +92,7 @@ export class CadastroDiaristasPage {
   edit(recomendacao) {
       /*if (data) {
         this.dao.update(data, (recomendacao) => {
-          let toast = this.toastCtrl.create({
-            message: 'Recomendação alterada com sucesso',
-            duration: 3000,
+          let toast = this.utils',on: 3000,
             position: 'bottom'
           });
           toast.present();
@@ -108,32 +106,26 @@ export class CadastroDiaristasPage {
   }
 
   tirarFoto() : void {
-    let loader = this.loadingCtrl.create({
-      content: "Carregando foto..."
-    });
     this.options.sourceType = this.camera.PictureSourceType.CAMERA;
-    loader.present();
+    this.utils.showLoading("Carregando foto...");
     this.camera.getPicture(this.options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      loader.dismiss();
+      this.utils.dismissLoading();
     }, (err) => {
       // Handle error
     });
   }
 
   escolherFoto() : void {
-    let loader = this.loadingCtrl.create({
-      content: "Carregando foto..."
-    });
     this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
-    loader.present();
+    this.utils.showLoading("Carregando foto...");
     this.camera.getPicture(this.options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      loader.dismiss();
+      this.utils.dismissLoading();
     }, (err) => {
       // Handle error
     });
@@ -179,16 +171,12 @@ export class CadastroDiaristasPage {
             console.log("erro ao salvar diarista");
           });
 
-        this.toastCtrl.create({
-          message: 'Solicitação de cadastro como Diarista enviado. Código: '+result.id, position: 'center', duration: 3000
-        }).present();
+        this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: '+result.id, 3000);
       }
     ).catch(
       (error: any) => {
         console.log('erro retornado do provider:'+ JSON.stringify(error));
-        this.toastCtrl.create({
-          message: 'Erro ao Solicitar cadastro como Diarista: '+error.error, position: 'center', duration: 3000
-        }).present();
+        this.utils.showToast('Erro ao Solicitar cadastro como Diarista: '+error.error, 3000);
       }
     );
   }
@@ -202,9 +190,7 @@ export class CadastroDiaristasPage {
       })
       .catch((error: any) => {
         console.log('erro retornado do provider:'+ JSON.stringify(error));
-        this.toastCtrl.create({
-          message: 'Erro ao listar Diaristas com cadastro pendente.', position: 'bottom', duration: 3000
-        });
+        this.utils.showToast('Erro ao listar Diaristas com cadastro pendente.', 3000);
       })
   }
 }

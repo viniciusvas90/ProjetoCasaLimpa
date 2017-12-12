@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { IonicStorageModule } from '@ionic/storage';
 import { UsersProvider } from '../providers/users/users';
+import { Utils } from '../utils';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UsersProvider } from '../providers/users/users';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DiaristasProvider,
-    UsersProvider
+    UsersProvider,
+    Utils
   ]
 })
 export class AppModule {}
