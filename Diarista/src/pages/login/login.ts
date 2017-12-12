@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { UsersProvider } from '../../providers/users/users';
-import { Util } from '../../util/util';
+import { Utils } from '../../utils';
 
 @IonicPage()
 @Component({
@@ -14,8 +14,7 @@ export class LoginPage {
   model: User;
 
   constructor(public navCtrl: NavController,
-              public loadingCtrl:LoadingController,
-              private util:Util,
+              private util:Utils,
               private usersProvider: UsersProvider) {
     this.model = new User();
     this.model.email = '';
@@ -34,51 +33,38 @@ export class LoginPage {
   }
 
   login() {
-    console.log('login()');
-    let loader = this.loadingCtrl.create({
-      content: "Logging in..."
-    });
-    loader.present();
+    this.util.showLoading('Realizando Login...');
 
     this.usersProvider.login(this.model.email, this.model.password)
       .then((result: any) => {
-        let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
-        localStorage.setItem('token', token);
-        console.log('login() sucesso: '+token);
-        loader.dismiss();
-        this.util.showToast('Login efetuado com sucesso.', 3000);
-        this.navCtrl.setRoot("HomePage");
+        this.util.dismissLoading();
+        this.util.showToast('Login efetuado com sucesso.', 3000);        
+        this.navCtrl.push("HomePage");
       })
       .catch((error: any) => {
         let mensagem = error.status;
         if (error.status == 500) mensagem = 'Sistema indisponível.';
         if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
         console.log('login() erro: '+JSON.stringify(error));
-        loader.dismiss();
+        this.util.dismissLoading();
         this.util.showToast('Erro ao efetuar login: ' + mensagem,5000);
       });
   }
 
   register() {
     console.log('register()');
-    let loader = this.loadingCtrl.create({
-      content: "Logging in..."
-    });
-    loader.present();
+    this.util.showLoading('Realizando Cadastro...');
 
     this.usersProvider.register(this.model.email, this.model.password, this.model.nome)
       .then((result: any) => {
-        loader.dismiss();
-        this.toastCtrl.create({ message: 'Usuário criado com sucesso.', position: 'botton', duration: 3000 }).present();
-
-        //Salvar o token no Ionic Storage para usar em futuras requisições.
-        //Redirecionar o usuario para outra tela usando o navCtrl
+        this.util.dismissLoading();
+        this.util.showToast('Usuário criado com sucesso.', 3000);
         this.doLogin();
       })
       .catch((error: any) => {
         console.log(JSON.stringify(error));
-        loader.dismiss();
-        this.toastCtrl.create({ message: 'Erro ao criar o usuário. Erro: ' + error.message, position: 'botton', duration: 3000 }).present();
+        this.util.dismissLoading();
+        this.util.showToast('Erro ao criar o usuário. Erro: ' + error.message, 3000);
       });
   }
 }

@@ -12,12 +12,36 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UsersProvider {
   private API_URI = 'http://localhost:8100/api';
+  private logado : boolean;
+  private token : string;
 
   constructor(public http: Http) {
     console.log('Hello UsersProvider Provider');
+    this.logado = false;
+    this.token = null;
   }
 
-  register(email: string, password: string, nome: string) {
+  private storeToken(token) : void {    
+    localStorage.setItem('token', token);
+    this.setSession(token);
+  }
+
+  private setSession(token) : void {    
+    this.token = token;
+    this.logado = true;
+  }
+
+  private loadToken() : void {
+    this.setSession(localStorage.getItem('token'));
+  }
+
+  private destroySession() : void {
+    this.logado = false;
+    this.token = null;
+    localStorage.clear();
+  }
+
+  public register(email: string, password: string, nome: string) {
     return new Promise((resolve, reject) => {
       var data = {
         email: email,
@@ -39,7 +63,7 @@ export class UsersProvider {
     });
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     return new Promise((resolve, reject) => {
       var data = {
         email: email,
@@ -52,6 +76,8 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
+          let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+          this.storeToken(token);
           resolve(result);
         },
         (error) => {
@@ -61,8 +87,8 @@ export class UsersProvider {
     });
   }
 
-  logout(){
-    return new Promise((resolve, reject) => {
+  public logout(){
+    /*return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('X-Auth-Token', localStorage.getItem('token'));
 
@@ -72,7 +98,8 @@ export class UsersProvider {
         }, (err) => {
           reject(err);
         });
-    });
+    });*/
+    this.destroySession();
   }
 
 }

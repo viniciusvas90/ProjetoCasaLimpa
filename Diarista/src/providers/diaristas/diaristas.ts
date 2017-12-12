@@ -15,7 +15,7 @@ export class DiaristasProvider {
 
   private API_URI = 'http://localhost:8080/diaristas';
 
-  constructor(public http: Http, private storage: Storage, private datepipe: DatePipe) {
+  constructor(private http: Http, private storage: Storage, private datepipe: DatePipe) {
     console.log('DiaristasProvider');
   }
 
