@@ -4,10 +4,10 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
-import { IonicStorageModule } from '@ionic/storage';
 import { UsersProvider } from '../providers/users/users';
 import { Utils } from '../utils';
 
@@ -18,6 +18,10 @@ import { Utils } from '../utils';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     HttpModule
   ],
   bootstrap: [IonicApp],

@@ -7,9 +7,11 @@ package com.vas.casalimpa.java.controllers;
 
 import com.vas.casalimpa.java.data.model.Diarista;
 import com.vas.casalimpa.java.data.model.DiaristaRecomendacao;
+import com.vas.casalimpa.java.data.model.Usuario;
 import com.vas.casalimpa.java.data.repository.IDiaristaRecomendacaoRepository;
 import com.vas.casalimpa.java.data.repository.IDiaristaRepository;
 import com.vas.casalimpa.java.data.repository.IEnderecoRepository;
+import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -32,12 +34,19 @@ public class DiaristaController {
     private final IDiaristaRepository diaristaRepository;
     private final IDiaristaRecomendacaoRepository diaristaRecomendacaoRepository;
     private final IEnderecoRepository enderecoRepository;
+    private final IUsuarioRepository usuarioRepository;
 
     @Autowired
-    public DiaristaController(IDiaristaRepository diaristaRepository, IEnderecoRepository enderecoRepository, IDiaristaRecomendacaoRepository diaristaRecomendacaoRepository) {
+    public DiaristaController(
+            IDiaristaRepository diaristaRepository,
+            IEnderecoRepository enderecoRepository,
+            IDiaristaRecomendacaoRepository diaristaRecomendacaoRepository,
+            IUsuarioRepository usuarioRepository
+    ) {
         this.diaristaRepository = diaristaRepository;
         this.diaristaRecomendacaoRepository = diaristaRecomendacaoRepository;
         this.enderecoRepository = enderecoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @RequestMapping(value = "/diaristas", method = RequestMethod.POST)
@@ -49,6 +58,7 @@ public class DiaristaController {
             recomendacao.setDiarista(novo);
         }
         diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
+        Usuario usuario = usuarioRepository.findOne(diarista.getUsuario().getId());
         return new ResponseEntity<Diarista>(novo, HttpStatus.CREATED);
     }
 

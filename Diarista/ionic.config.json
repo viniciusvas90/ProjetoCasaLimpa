@@ -1,5 +1,5 @@
 {
-  "name": "Diarista",
+  "name": "EmpregApp",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://localhost:8080/"
+      "proxyUrl": "http://192.168.0.15:8080/"
     }
   ]
 }

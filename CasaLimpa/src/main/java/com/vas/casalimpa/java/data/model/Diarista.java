@@ -156,4 +156,8 @@ public class Diarista {
         this.avaliacoes = avaliacoes;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
 }

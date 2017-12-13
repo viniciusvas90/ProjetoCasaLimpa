@@ -76,4 +76,5 @@ export class Diarista {
   autorizado: boolean;
   dataCadastro: Date;
   dataAutorizado: Date;
+  usuario : { id : string }
 }

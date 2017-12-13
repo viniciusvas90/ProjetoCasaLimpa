@@ -22,7 +22,12 @@ export class LoginPage {
     this.model.nome = '';
   }
 
-  ionViewDidLoad() {  }
+  ionViewDidLoad() { 
+    if (this.usersProvider.estaLogado()) {
+      this.navCtrl.setRoot("HomePage");
+      this.navCtrl.popAll();
+    }
+  }
 
   doLogin() {
     this.showLogin = true;
@@ -40,6 +45,7 @@ export class LoginPage {
         this.util.dismissLoading();
         this.util.showToast('Login efetuado com sucesso.', 3000);        
         this.navCtrl.push("HomePage");
+        console.log("token guardado no storage: "+localStorage.getItem('token'));
       })
       .catch((error: any) => {
         let mensagem = error.status;

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,18 +12,18 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class UsersProvider {
-  private API_URI = 'http://localhost:8100/api';
+  private API_URI = 'http://192.168.0.15:8080';
   private logado : boolean;
   private token : string;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, private storage: Storage) {
     console.log('Hello UsersProvider Provider');
     this.logado = false;
     this.token = null;
   }
 
   private storeToken(token) : void {    
-    localStorage.setItem('token', token);
+    this.storage.set('token', token);
     this.setSession(token);
   }
 
@@ -31,14 +32,19 @@ export class UsersProvider {
     this.logado = true;
   }
 
-  private loadToken() : void {
-    this.setSession(localStorage.getItem('token'));
+  private loadSession() : void {
+    this.setSession(this.storage.get('token'));
   }
 
   private destroySession() : void {
     this.logado = false;
     this.token = null;
-    localStorage.clear();
+    this.storage.clear();
+  }
+
+  public estaLogado() : boolean {
+    this.loadSession();
+    return this.logado;
   }
 
   public register(email: string, password: string, nome: string) {

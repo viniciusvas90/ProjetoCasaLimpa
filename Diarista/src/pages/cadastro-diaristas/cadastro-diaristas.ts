@@ -5,13 +5,6 @@ import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas
 import { Utils } from '../../utils';
 import 'rxjs/add/operator/catch';
 
-/**
- * Generated class for the DiaristasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-cadastro-diaristas',
@@ -165,7 +158,7 @@ export class CadastroDiaristasPage {
         this.diaristaResponse.dataAutorizado = result.dataAutorizado;
         this.diaristasProvider.insert(this.diaristaResponse)
           .then(() => {
-            console.log("diarista salva");
+            console.log("diarista salva: "+JSON.stringify(this.diaristaResponse));
           })
           .catch(() => {
             console.log("erro ao salvar diarista");
