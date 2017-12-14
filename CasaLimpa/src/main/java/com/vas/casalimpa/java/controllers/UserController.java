@@ -40,7 +40,7 @@ public class UserController {
         this.usuarioRepository.save(user);
     }
     
-    @GetMapping(value = "/logado/{email}")
+    @GetMapping(value = "/logado/{email:.+}")
     public ResponseEntity<Usuario> usuarioLogado(@PathVariable String email) {
         return new ResponseEntity<Usuario>(this.usuarioRepository.findUsuarioByEmail(email), HttpStatus.OK);
     }
