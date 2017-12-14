@@ -20,9 +20,10 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      this.rootPage = "LoginPage";
-      
+      this.usersProvider.loadSession().then(() => {
+        console.log("carregou a sessão");
+        this.rootPage = "LoginPage";
+      });
     });
   }
 

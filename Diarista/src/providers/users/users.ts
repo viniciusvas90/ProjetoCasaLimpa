@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class UsersProvider {
-  private API_URI = 'http://192.168.0.15:8080';
+  private API_URI = 'http://192.168.15.181:8080';
   private logado : boolean;
   private token : string;
 
@@ -32,8 +32,16 @@ export class UsersProvider {
     this.logado = true;
   }
 
-  private loadSession() : void {
-    this.setSession(this.storage.get('token'));
+  public loadSession() {
+    return new Promise((resolve, reject) => {  
+      this.storage.get('token').then((token) => {
+        if (token) {
+          console.log("token: ", token);
+          this.setSession(token);
+        }
+        resolve();
+      });  
+    });  
   }
 
   private destroySession() : void {
@@ -43,7 +51,6 @@ export class UsersProvider {
   }
 
   public estaLogado() : boolean {
-    this.loadSession();
     return this.logado;
   }
 
@@ -82,15 +89,34 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
-          let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
-          this.storeToken(token);
-          resolve(result);
+          console.log(JSON.stringify(result));
+          try {
+            let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+            this.storeToken(token);
+          } catch (err) {
+            reject({ status: "432" });
+          }
+          resolve();
         },
         (error) => {
           //console.log("erro = "+JSON.stringify(error));
           reject(error);
         });
     });
+  }
+  
+  public storeUser(email: string) : void {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aW5pY2l1cy52YXMudGlAZ21haWwuY29tIiwiZXhwIjoxNTE0MTMyOTA4fQ.S0efxyH3ra40zMQSRHDOYzc-H1jS2XjWfMODODgLzgeS2X4LI053d0rbVFj5QeOW4NZR_J-5RVHYPtoZtvgaoQ');
+
+    this.http.get(this.API_URI + '/logado/'+email, {headers: headers})
+      .subscribe((result: any) => {
+        console.log(JSON.stringify(result));
+      },
+      (error) => {
+        console.log("erro = "+JSON.stringify(error));
+      });
   }
 
   public logout(){

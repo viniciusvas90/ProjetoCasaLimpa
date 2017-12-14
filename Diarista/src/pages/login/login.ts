@@ -22,7 +22,9 @@ export class LoginPage {
     this.model.nome = '';
   }
 
-  ionViewDidLoad() { 
+  ionViewDidLoad() {
+    this.usersProvider.storeUser('vinicius.vas.ti@gmail.com');
+    console.log("Está logado: ",this.usersProvider.estaLogado());
     if (this.usersProvider.estaLogado()) {
       this.navCtrl.setRoot("HomePage");
       this.navCtrl.popAll();
@@ -41,16 +43,19 @@ export class LoginPage {
     this.util.showLoading('Realizando Login...');
 
     this.usersProvider.login(this.model.email, this.model.password)
-      .then((result: any) => {
+      .then(() => {
         this.util.dismissLoading();
         this.util.showToast('Login efetuado com sucesso.', 3000);        
         this.navCtrl.push("HomePage");
         console.log("token guardado no storage: "+localStorage.getItem('token'));
+
+        this.usersProvider.storeUser(this.model.email);
       })
       .catch((error: any) => {
         let mensagem = error.status;
         if (error.status == 500) mensagem = 'Sistema indisponível.';
         if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
+        if (error.status == 432) mensagem = 'Erro inesperado.';
         console.log('login() erro: '+JSON.stringify(error));
         this.util.dismissLoading();
         this.util.showToast('Erro ao efetuar login: ' + mensagem,5000);
