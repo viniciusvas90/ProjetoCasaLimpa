@@ -112,7 +112,9 @@ export class UsersProvider {
 
     this.http.get(this.API_URI + '/logado/'+email, {headers: headers})
       .subscribe((result: any) => {
-        console.log(JSON.stringify(result));
+        console.log("usuario ",JSON.stringify(result));
+        let user: Usuario = result;
+        this.storage.set('usuario', user);
       },
       (error) => {
         console.log("erro = "+JSON.stringify(error));
@@ -134,4 +136,12 @@ export class UsersProvider {
     this.destroySession();
   }
 
+}
+
+export class Usuario {
+  id : number;
+  nome: string;
+  email: string;
+  password: string;
+  perfil: number;
 }
