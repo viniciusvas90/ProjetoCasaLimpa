@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { DatePipe } from '@angular/common';
 
 import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
@@ -34,7 +35,8 @@ import { Utils } from '../utils';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DiaristasProvider,
     UsersProvider,
-    Utils
+    Utils,
+    DatePipe
   ]
 })
 export class AppModule {}

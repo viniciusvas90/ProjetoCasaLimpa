@@ -7,10 +7,6 @@
 <ion-content>
     <ion-list *ngIf="passo === 1">
       <ion-item>
-        <ion-label floating>Nome</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.nome" name="nome"></ion-input>
-      </ion-item>
-      <ion-item>
         <ion-label floating>CPF</ion-label>
         <ion-input type="number" required [(ngModel)]="diarista.cpf" name="cpf"></ion-input>
       </ion-item>
@@ -21,10 +17,6 @@
       <ion-item>
         <ion-label floating>Telefone para contato</ion-label>
         <ion-input type="text" required [(ngModel)]="diarista.telefone" name="telefone"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>E-mail</ion-label>
-        <ion-input type="text" required [(ngModel)]="diarista.email" name="email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Número de Registro no Sindicato</ion-label>
@@ -73,8 +65,8 @@
         <button ion-button full (click)="addRecomendacao()">Adicionar Recomendação</button>
       </ion-item>
 
-      <ion-item-sliding *ngFor="let item of listRecomendacoes">
-        <ion-item  (click)="edit(item)" *ngIf="listRecomendacoes.length > 0">
+      <ion-item-sliding *ngFor="let item of this.diarista.recomendacoes">
+        <ion-item  (click)="edit(item)" *ngIf="this.diarista.recomendacoes.length > 0">
           {{item.nome}} - {{item.contato}}
         </ion-item>
 
@@ -85,7 +77,7 @@
     </ion-list>
 
     <button *ngIf="passo != 4" [disabled]="!formOk()" ion-button full (click)="avancar()">Avançar</button>
-    <button *ngIf="passo === 4 && listRecomendacoes.length >= 3" ion-button full (click)="salvar()">Enviar Cadastro</button>
+    <button *ngIf="passo === 4 && this.diarista.recomendacoes.length >= 3" ion-button full (click)="salvar()">Enviar Cadastro</button>
 
     <!--<button  ion-button full (click)="getAllPendant()">Enviar Cadastro</button>-->
 </ion-content>

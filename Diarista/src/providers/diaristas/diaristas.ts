@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
 import 'rxjs/add/operator/map';
+import { UsersProvider } from '../users/users';
 
 /*
   Generated class for the DiaristasProvider provider.
@@ -13,9 +14,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DiaristasProvider {
 
-  private API_URI = 'http://localhost:8080/diaristas';
+  private API_URI = 'http://localhost:8100/api';
 
-  constructor(private http: Http, private storage: Storage, private datepipe: DatePipe) {
+  constructor(private http: Http,
+              private storage: Storage,
+              private datepipe: DatePipe,
+              private usersProvider: UsersProvider) {
     console.log('DiaristasProvider');
   }
 
@@ -36,11 +40,14 @@ export class DiaristasProvider {
     return this.storage.remove(key);
   }
 
-  create(data) {
+  create(data: Diarista) {
     console.log('create(data)');
     return new Promise((resolve, reject) => {
-      console.log('Promise: '+data.nome);
-      this.http.post(this.API_URI, data)
+      console.log('Promise: '+JSON.stringify(data));
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', 'Bearer '+this.usersProvider.getToken());
+      this.http.post(this.API_URI+"/diaristas", data, {headers: headers})
         .subscribe((result: any) => {
           resolve(result.json());
         },
@@ -76,5 +83,9 @@ export class Diarista {
   autorizado: boolean;
   dataCadastro: Date;
   dataAutorizado: Date;
-  usuario : { id : string }
+  usuario : { id : string };
+  recomendacoes: Array<{nome:string; contato:string}>;
+  endereco: {
+    bairro: string, numero : string, cep: string, endereco: string
+  };
 }

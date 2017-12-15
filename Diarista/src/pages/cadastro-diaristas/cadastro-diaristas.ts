@@ -13,14 +13,7 @@ import 'rxjs/add/operator/catch';
 export class CadastroDiaristasPage {
   diaristaResponse: Diarista;
   public base64Image: string;
-  diarista = {
-    nome: "", cpf: "", email: "", telefone: "",
-    endereco: {
-      bairro: "", numero : "", cep: "", endereco: ""
-    },
-    recomendacoes: []
-  };
-  listRecomendacoes = [];
+  diarista: Diarista = new Diarista();
   passo = 1;
   recomendacao = { nome: "", contato: ""};
   public unregisterBackButtonAction: any;
@@ -37,6 +30,8 @@ export class CadastroDiaristasPage {
               private camera: Camera,
               public platform: Platform,
               private diaristasProvider: DiaristasProvider) {
+    this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
+    this.diarista.recomendacoes = new Array;
   }
 
   ionViewDidLoad() {
@@ -79,7 +74,7 @@ export class CadastroDiaristasPage {
     }
     var item = this.recomendacao;
     this.recomendacao = { nome: "", contato: ""};
-    this.listRecomendacoes.push(item);
+    this.diarista.recomendacoes.push(item);
   }
 
   edit(recomendacao) {
@@ -127,7 +122,7 @@ export class CadastroDiaristasPage {
   formOk() : boolean {
     switch (this.passo) {
       case 1:
-        if (this.diarista.nome && this.diarista.cpf && this.diarista.email && this.diarista.telefone) return true;
+        if (this.diarista.cpf && this.diarista.telefone) return true;
         return false;
       case 2:
         if (this.base64Image || this.platform.is('core') || this.platform.is('mobileweb')) return true;
@@ -141,7 +136,6 @@ export class CadastroDiaristasPage {
   }
 
   salvar() {
-    this.diarista.recomendacoes = this.listRecomendacoes;
     console.log('salvar diarista:'+ JSON.stringify(this.diarista));
     this.diaristasProvider.create(this.diarista).then(
       (result: any) => {

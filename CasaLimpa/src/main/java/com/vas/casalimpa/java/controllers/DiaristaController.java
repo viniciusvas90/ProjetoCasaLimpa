@@ -57,8 +57,10 @@ public class DiaristaController {
         for (DiaristaRecomendacao recomendacao : diarista.getRecomendacoes()) {
             recomendacao.setDiarista(novo);
         }
-        diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
         Usuario usuario = usuarioRepository.findOne(diarista.getUsuario().getId());
+        diarista.setNome(usuario.getNome());
+        diarista.setUsuario(usuario);
+        diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
         return new ResponseEntity<Diarista>(novo, HttpStatus.CREATED);
     }
 

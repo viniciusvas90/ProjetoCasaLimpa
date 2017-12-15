@@ -2,7 +2,8 @@ import { Component, ViewChild  } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { UsersProvider } from '../providers/users/users';
+import { UsersProvider, Usuario } from '../providers/users/users';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,13 +16,14 @@ export class MyApp {
               splashScreen: SplashScreen,
               private usersProvider: UsersProvider) {
     platform.ready().then(() => {
-      console.log("carregou");
+      console.log("Carregou.");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
       this.usersProvider.loadSession().then(() => {
-        console.log("carregou a sessão");
+        console.log("Carregou a sessão Token: "+this.usersProvider.getToken());
+        this.usersProvider.getUsuarioStorage().then((user:Usuario) => {console.log("Usuario: "+ user.email);});
         this.rootPage = "LoginPage";
       });
     });
@@ -37,5 +39,10 @@ export class MyApp {
   showMenu() {
     //return this.auth.isAuthenticated() || this.platform.is('core');
     return true;
+  }
+
+  logout() : void {
+    this.usersProvider.logout();
+    this.nav.push(LoginPage);
   }
 }

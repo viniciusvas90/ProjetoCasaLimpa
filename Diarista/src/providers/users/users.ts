@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UsersProvider {
   private API_URI = 'http://localhost:8100/api';
+  //private API_URI = 'http://192.168.15.181:8100';
   private logado : boolean;
   private token : string;
 
@@ -20,6 +21,10 @@ export class UsersProvider {
     console.log('Hello UsersProvider Provider');
     this.logado = false;
     this.token = null;
+  }
+
+  public getToken() : string {
+    return this.token;
   }
 
   private storeToken(token) : void {    
@@ -36,7 +41,6 @@ export class UsersProvider {
     return new Promise((resolve, reject) => {  
       this.storage.get('token').then((token) => {
         if (token) {
-          console.log("token: ", token);
           this.setSession(token);
         }
         resolve();
@@ -52,6 +56,14 @@ export class UsersProvider {
 
   public estaLogado() : boolean {
     return this.logado;
+  }
+
+  public getUsuarioStorage() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('usuario').then((user) => {
+        resolve(user);
+      });
+    });
   }
 
   public register(email: string, password: string, nome: string) {
@@ -103,12 +115,11 @@ export class UsersProvider {
   public storeUser(email: string) : void {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    //headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aW5pY2l1cy52YXMudGlAZ21haWwuY29tIiwiZXhwIjoxNTE0MTMyOTA4fQ.S0efxyH3ra40zMQSRHDOYzc-H1jS2XjWfMODODgLzgeS2X4LI053d0rbVFj5QeOW4NZR_J-5RVHYPtoZtvgaoQ');
+    headers.append('Authorization', 'Bearer '+this.getToken());
 
     this.http.get(this.API_URI + '/logado/'+email, {headers: headers})
       .subscribe((result: any) => {
-        console.log("usuario ",JSON.stringify(result));
-        let user: Usuario = result;
+        let user: Usuario = JSON.parse(result._body);
         this.storage.set('usuario', user);
       },
       (error) => {
