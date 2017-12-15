@@ -12,10 +12,8 @@ export class HomePage {
 
   public direcionaCadastro(flag : string) : void {
     if (flag === 'diarista') {
-      this.navCtrl.pop();
       this.navCtrl.push("CadastroDiaristasPage");
     } else if (flag === 'cliente') {      
-      this.navCtrl.pop();
       this.navCtrl.push("CadastroClientePage");
     }
   }

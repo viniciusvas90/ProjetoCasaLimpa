@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class UsersProvider {
-  private API_URI = 'http://192.168.0.15:8080';
+  private API_URI = 'http://localhost:8100/api';
   private logado : boolean;
   private token : string;
 
@@ -89,14 +89,9 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
-          console.log(JSON.stringify(result));
-          try {
-            let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
-            this.storeToken(token);
-          } catch (err) {
-            reject({ status: "432" });
-          }
-          resolve();
+          let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+          this.storeToken(token);
+          resolve(result);
         },
         (error) => {
           //console.log("erro = "+JSON.stringify(error));

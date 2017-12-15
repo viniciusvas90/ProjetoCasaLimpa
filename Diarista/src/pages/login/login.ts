@@ -27,7 +27,7 @@ export class LoginPage {
     console.log("Está logado: ",this.usersProvider.estaLogado());
     if (this.usersProvider.estaLogado()) {
       this.navCtrl.setRoot("HomePage");
-      this.navCtrl.popAll();
+      //this.navCtrl.popAll();
     }
   }
 
@@ -47,7 +47,6 @@ export class LoginPage {
         this.util.dismissLoading();
         this.util.showToast('Login efetuado com sucesso.', 3000);        
         this.navCtrl.push("HomePage");
-        console.log("token guardado no storage: "+localStorage.getItem('token'));
 
         this.usersProvider.storeUser(this.model.email);
       })
