@@ -23,7 +23,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    this.usersProvider.storeUser('vinicius.vas.ti@gmail.com');
+    //this.usersProvider.storeUser('vinicius.vas.ti@gmail.com');
     console.log("Está logado: ",this.usersProvider.estaLogado());
     if (this.usersProvider.estaLogado()) {
       this.navCtrl.setRoot("HomePage");

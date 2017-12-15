@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class UsersProvider {
-  private API_URI = 'http://192.168.15.181:8080';
+  private API_URI = 'http://192.168.0.15:8080';
   private logado : boolean;
   private token : string;
 
