@@ -23,7 +23,6 @@ export class MyApp {
       splashScreen.hide();
       this.usersProvider.loadSession().then(() => {
         console.log("Carregou a sessão Token: "+this.usersProvider.getToken());
-        this.usersProvider.getUsuarioStorage().then((user:Usuario) => {console.log("Usuario: "+ user.email);});
         this.rootPage = "LoginPage";
       });
     });

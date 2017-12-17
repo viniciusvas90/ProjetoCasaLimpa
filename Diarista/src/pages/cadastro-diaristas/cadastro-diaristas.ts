@@ -11,11 +11,9 @@ import 'rxjs/add/operator/catch';
   templateUrl: 'cadastro-diaristas.html',
 })
 export class CadastroDiaristasPage {
-  diaristaResponse: Diarista;
-  public base64Image: string;
-  diarista: Diarista = new Diarista();
+  diarista: Diarista;
   passo = 1;
-  recomendacao = { nome: "", contato: ""};
+  recomendacao = { nome: "", contato: "" };
   public unregisterBackButtonAction: any;
 
   options = {
@@ -30,6 +28,7 @@ export class CadastroDiaristasPage {
               private camera: Camera,
               public platform: Platform,
               private diaristasProvider: DiaristasProvider) {
+    this.diarista = new Diarista();
     this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
     this.diarista.recomendacoes = new Array;
   }
@@ -37,7 +36,9 @@ export class CadastroDiaristasPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroDiaristasPage');
     this.initializeBackButtonCustomHandler();
-    this.list();
+    this.diaristasProvider.loadDiaristaStorage().then((data) => {
+      this.diarista = data;
+    });
   }
 
   ionViewWillLeave() {
@@ -55,12 +56,6 @@ export class CadastroDiaristasPage {
 
   private voltar() : void {
     if (this.passo > 1) this.passo--;
-  }
-
-  list() {
-    /*this.dao.getList((lista) => {
-      this.listRecomendacoes = lista;
-    });*/
   }
 
   addRecomendacao() {
@@ -99,7 +94,7 @@ export class CadastroDiaristasPage {
     this.camera.getPicture(this.options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.diarista.fotoBase64Image = 'data:image/jpeg;base64,' + imageData;
       this.utils.dismissLoading();
     }, (err) => {
       // Handle error
@@ -112,7 +107,7 @@ export class CadastroDiaristasPage {
     this.camera.getPicture(this.options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.diarista.fotoBase64Image = 'data:image/jpeg;base64,' + imageData;
       this.utils.dismissLoading();
     }, (err) => {
       // Handle error
@@ -125,7 +120,7 @@ export class CadastroDiaristasPage {
         if (this.diarista.cpf && this.diarista.telefone) return true;
         return false;
       case 2:
-        if (this.base64Image || this.platform.is('core') || this.platform.is('mobileweb')) return true;
+        if (this.diarista.fotoBase64Image || this.platform.is('core') || this.platform.is('mobileweb')) return true;
         return false;
       case 3:
         if (this.diarista.endereco.cep && this.diarista.endereco.endereco && this.diarista.endereco.bairro && this.diarista.endereco.numero) return true;
@@ -136,34 +131,24 @@ export class CadastroDiaristasPage {
   }
 
   salvar() {
-    console.log('salvar diarista:'+ JSON.stringify(this.diarista));
+    this.diaristasProvider.insert(this.diarista)
+      .then(() => {
+        console.log("diarista salva: "+JSON.stringify(this.diarista.cpf));
+      })
+      .catch(() => {
+        console.log("erro ao salvar diarista");
+      });
+
     this.diaristasProvider.create(this.diarista).then(
       (result: any) => {
-        console.log('sucesso retornado do provider: '+JSON.stringify(result));
-
-        this.diaristaResponse.id = result.id;
-        this.diaristaResponse.nome = result.nome;
-        this.diaristaResponse.cpf = result.cpf;
-        this.diaristaResponse.rg = result.rg;
-        this.diaristaResponse.telefone = result.telefone;
-        this.diaristaResponse.sindicato = result.sindicato;
-        this.diaristaResponse.autorizado = result.autorizado;
-        this.diaristaResponse.dataCadastro = result.dataCadastro;
-        this.diaristaResponse.dataAutorizado = result.dataAutorizado;
-        this.diaristasProvider.insert(this.diaristaResponse)
-          .then(() => {
-            console.log("diarista salva: "+JSON.stringify(this.diaristaResponse));
-          })
-          .catch(() => {
-            console.log("erro ao salvar diarista");
-          });
-
-        this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: '+result.id, 3000);
+        console.log(JSON.stringify(result));
+        this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: '+JSON.parse(result._body).id, 3000);
       }
     ).catch(
       (error: any) => {
-        console.log('erro retornado do provider:'+ JSON.stringify(error));
-        this.utils.showToast('Erro ao Solicitar cadastro como Diarista: '+error.error, 3000);
+        let mensagem = error.status;
+        if (error.status == 500) mensagem = 'Sistema indisponível.';
+        this.utils.showToast('Erro ao Solicitar cadastro como Diarista: '+mensagem, 3000);
       }
     );
   }

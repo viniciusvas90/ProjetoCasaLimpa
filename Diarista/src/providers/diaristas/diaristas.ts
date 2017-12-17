@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
 import 'rxjs/add/operator/map';
-import { UsersProvider } from '../users/users';
+import { UsersProvider, Usuario } from '../users/users';
 
 /*
   Generated class for the DiaristasProvider provider.
@@ -24,8 +24,8 @@ export class DiaristasProvider {
   }
 
   public insert(diarista: Diarista) {
-    let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
-    return this.save(key, diarista  );
+    //let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
+    return this.save('diarista', diarista  );
   }
 
   public update(key: string, diarista: Diarista) {
@@ -40,20 +40,26 @@ export class DiaristasProvider {
     return this.storage.remove(key);
   }
 
-  create(data: Diarista) {
+  public loadDiaristaStorage() : Promise<any> {
+    return this.storage.get('diarista');
+  }
+
+  create(diarista: Diarista) {
     console.log('create(data)');
     return new Promise((resolve, reject) => {
-      console.log('Promise: '+JSON.stringify(data));
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', 'Bearer '+this.usersProvider.getToken());
-      this.http.post(this.API_URI+"/diaristas", data, {headers: headers})
+      this.usersProvider.getUsuarioStorage().then((user: Usuario) => {
+        diarista.usuario = user;
+        this.http.post(this.API_URI+"/diaristas", diarista, {headers: headers})
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
-          reject(error.json());
+          reject(error);
         });
+      });      
     });
   }
 
@@ -83,7 +89,8 @@ export class Diarista {
   autorizado: boolean;
   dataCadastro: Date;
   dataAutorizado: Date;
-  usuario : { id : string };
+  fotoBase64Image : string;
+  usuario : Usuario;
   recomendacoes: Array<{nome:string; contato:string}>;
   endereco: {
     bairro: string, numero : string, cep: string, endereco: string

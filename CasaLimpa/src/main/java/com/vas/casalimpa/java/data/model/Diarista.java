@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.Transient;
 
 /**
  *
@@ -56,6 +57,9 @@ public class Diarista {
     @OneToOne(optional = true)
     @JoinColumn(unique = true)
     private Usuario usuario;
+    
+    @Transient
+    private String fotoBase64Image;
 
     @PrePersist
     void onInsert() {
@@ -162,6 +166,14 @@ public class Diarista {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getFotoBase64Image() {
+        return fotoBase64Image;
+    }
+
+    public void setFotoBase64Image(String foto) {
+        this.fotoBase64Image = foto;
     }
 
 }

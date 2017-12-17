@@ -79,7 +79,7 @@ export class UsersProvider {
 
       this.http.post(this.API_URI + '/register', data, {headers: headers})
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           //console.log(JSON.stringify(error));

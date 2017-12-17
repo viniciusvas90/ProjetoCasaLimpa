@@ -29,7 +29,7 @@
         <button ion-button style="width:50%" (click)="escolherFoto()">Foto da Galeria</button>
         <button ion-button style="width:50%" (click)="tirarFoto()">Tirar Foto</button>
       </ion-item>
-      <img [src]="base64Image" *ngIf="base64Image" />
+      <img [src]="diarista.fotoBase64Image" *ngIf="diarista.fotoBase64Image" />
     </ion-list>
 
     <ion-list *ngIf="passo === 3">
