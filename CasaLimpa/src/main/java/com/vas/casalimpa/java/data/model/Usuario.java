@@ -30,8 +30,7 @@ public class Usuario {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Enumerated(EnumType.ORDINAL)
-    private PerfilEnum perfil;
+    private int perfil;
 
     public int getId() {
         return id;
@@ -57,11 +56,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public PerfilEnum getPerfil() {
+    public int getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(PerfilEnum perfil) {
+    public void setPerfil(int perfil) {
         this.perfil = perfil;
     }
 

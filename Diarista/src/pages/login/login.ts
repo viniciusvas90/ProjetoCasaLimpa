@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { UsersProvider } from '../../providers/users/users';
+import { UsersProvider, Usuario } from '../../providers/users/users';
 import { Utils } from '../../utils';
 
 @IonicPage()
@@ -22,12 +22,30 @@ export class LoginPage {
     this.model.nome = '';
   }
 
-  ionViewDidLoad() {
-    console.log("Está logado: ",this.usersProvider.estaLogado());
-    if (this.usersProvider.estaLogado()) {
-      this.navCtrl.setRoot("HomePage");
-      //this.navCtrl.popAll();
-    }
+  ionViewDidLoad() {}
+
+  ionViewWillEnter() {    
+    this.usersProvider.loadSession().then(() => {
+      if (this.usersProvider.estaLogado()) {
+        this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
+          console.log("usuario.perfil",usuario.perfil);
+          switch (usuario.perfil) {
+            case 0:
+              this.navCtrl.push("AdminHomePage");
+              break;
+            case 1:
+              this.navCtrl.push("ClientesHomePage");
+              break;
+            case 2:
+              this.navCtrl.push("DiaristasHomePage");
+              break;
+            default:
+              this.navCtrl.push("HomePage");
+          }
+        });
+      }
+    });
+    
   }
 
   doLogin() {

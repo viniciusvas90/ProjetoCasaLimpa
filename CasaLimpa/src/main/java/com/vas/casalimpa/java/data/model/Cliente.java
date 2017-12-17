@@ -5,6 +5,8 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -26,12 +32,28 @@ public class Cliente {
     private int id;
     @Column(nullable = false)
     private String nome;
+    private Boolean autorizado;
+    @Column(updatable = false, nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataCadastro;
+    @Column(insertable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataAutorizado;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Set<Imovel> imoveis;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Set<FormaPagamento> formasPagamentos;
+
+    @OneToOne(optional = true)
+    @JoinColumn(unique = true)
+    private Usuario usuario;
+
+    @PrePersist
+    void onInsert() {
+        this.dataCadastro = new Date();
+    }
 
     public int getId() {
         return id;
@@ -63,5 +85,27 @@ public class Cliente {
 
     public void setFormasPagamentos(Set<FormaPagamento> formasPagamentos) {
         this.formasPagamentos = formasPagamentos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    public String getDataCadastro() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(dataCadastro);
+    }
+
+    public String getDataAutorizado() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return dataAutorizado != null ? sdf.format(dataAutorizado) : null;
+    }
+        
+    public void setDataAutorizado(Date dataAutorizado) {
+        this.dataAutorizado = dataAutorizado;
     }
 }

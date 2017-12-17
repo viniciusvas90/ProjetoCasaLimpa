@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 /**
@@ -40,8 +41,10 @@ public class Diarista {
     private String sindicato;
     private Boolean autorizado;
     @Column(updatable = false, nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
     @Column(insertable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAutorizado;
 
     @OneToMany(mappedBy = "diarista")

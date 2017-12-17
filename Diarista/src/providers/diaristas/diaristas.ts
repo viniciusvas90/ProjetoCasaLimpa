@@ -54,6 +54,7 @@ export class DiaristasProvider {
         diarista.usuario = user;
         this.http.post(this.API_URI+"/diaristas", diarista, {headers: headers})
         .subscribe((result: any) => {
+          this.usersProvider.storeUser(user.email);
           resolve(result);
         },
         (error) => {

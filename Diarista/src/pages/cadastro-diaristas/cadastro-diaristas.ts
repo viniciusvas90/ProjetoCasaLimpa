@@ -4,6 +4,7 @@ import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas';
 import { Utils } from '../../utils';
 import 'rxjs/add/operator/catch';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class CadastroDiaristasPage {
   constructor(private utils: Utils,
               private camera: Camera,
               public platform: Platform,
-              private diaristasProvider: DiaristasProvider) {
+              private diaristasProvider: DiaristasProvider,
+              private navContrl: NavController) {
     this.diarista = new Diarista();
     this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
     this.diarista.recomendacoes = new Array;
@@ -37,7 +39,9 @@ export class CadastroDiaristasPage {
     console.log('ionViewDidLoad CadastroDiaristasPage');
     this.initializeBackButtonCustomHandler();
     this.diaristasProvider.loadDiaristaStorage().then((data) => {
-      this.diarista = data;
+      if (data) {
+        this.diarista = data;
+      }
     });
   }
 
@@ -141,8 +145,8 @@ export class CadastroDiaristasPage {
 
     this.diaristasProvider.create(this.diarista).then(
       (result: any) => {
-        console.log(JSON.stringify(result));
         this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: '+JSON.parse(result._body).id, 3000);
+        this.navContrl.popToRoot();
       }
     ).catch(
       (error: any) => {
