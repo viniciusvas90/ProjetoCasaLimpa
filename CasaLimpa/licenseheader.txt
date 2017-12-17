@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Todos os direitos reservados
+<#if licenseLast??>
+${licenseLast}
+</#if>
