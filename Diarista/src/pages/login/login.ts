@@ -12,6 +12,14 @@ export class LoginPage {
 
   showLogin:boolean = true;
   model: User;
+  apresentacaoExibida: boolean = false;
+  getApresentacaoExibida = (data) =>
+  {
+    return new Promise((resolve, reject) => {
+      this.apresentacaoExibida = data;
+      resolve();
+    });
+  };
 
   constructor(public navCtrl: NavController,
               private util:Utils,
@@ -43,6 +51,10 @@ export class LoginPage {
               this.navCtrl.push("HomePage");
           }
         });
+      } else {
+        if (!this.apresentacaoExibida) {
+          this.navCtrl.push("ApresentacaoPage", {callback: this.getApresentacaoExibida});
+        }
       }
     });
     
@@ -94,6 +106,7 @@ export class LoginPage {
         this.util.showToast('Erro ao criar o usuário. Erro: ' + error.message, 3000);
       });
   }
+    
 }
 
 export class User {
