@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { UsersProvider, Usuario } from '../../providers/users/users';
 
 /**
  * Generated class for the ApresentacaoPage page.
@@ -14,7 +15,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'apresentacao.html',
 })
 export class ApresentacaoPage {
-  callback: any;
 
   slides = [
     {
@@ -35,16 +35,38 @@ export class ApresentacaoPage {
   ];
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
-    this.callback =  this.navParams.get('callback') || [];                
+              private usersProvider: UsersProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ApresentacaoPage');
   }
+  
+  ionViewWillEnter() {    
+    this.usersProvider.loadSession().then(() => {
+      if (this.usersProvider.estaLogado()) {
+        this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
+          console.log("usuario.perfil",usuario.perfil);
+          switch (usuario.perfil) {
+            case 0:
+              this.navCtrl.push("AdminHomePage");
+              break;
+            case 1:
+              this.navCtrl.push("ClientesHomePage");
+              break;
+            case 2:
+              this.navCtrl.push("DiaristasHomePage");
+              break;
+            default:
+              this.navCtrl.push("HomePage");
+          }
+        });
+      }
+    });    
+  }
 
   public continuar(): void{
-    this.callback(true).then(() => { this.navCtrl.pop(); });    
+    this.navCtrl.push("LoginPage");
   }
 
 }

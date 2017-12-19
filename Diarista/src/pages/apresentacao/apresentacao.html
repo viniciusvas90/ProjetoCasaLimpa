@@ -5,11 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
+  <ion-content>
     <ion-title>Apresentação</ion-title>
-  </ion-navbar>
-
+  </ion-content>
 </ion-header>
 
 
@@ -18,7 +16,7 @@
     <ion-slide *ngFor="let slide of slides">
       <ion-toolbar>
         <ion-buttons end>
-          <button ion-button color="primary">Skip</button>
+          <button ion-button color="primary" (click)="continuar();">Skip</button>
         </ion-buttons>
       </ion-toolbar>
       <img [src]="slide.image" class="slide-image"/>
