@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -32,6 +33,8 @@ public class Cliente {
     private int id;
     @Column(nullable = false)
     private String nome;
+    @Column(nullable = false, unique = true)
+    private String cpf;
     private Boolean autorizado;
     @Column(updatable = false, nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -49,6 +52,9 @@ public class Cliente {
     @OneToOne(optional = true)
     @JoinColumn(unique = true)
     private Usuario usuario;
+    
+    @Transient
+    private String fotoBase64Image;
 
     @PrePersist
     void onInsert() {
@@ -107,5 +113,29 @@ public class Cliente {
         
     public void setDataAutorizado(Date dataAutorizado) {
         this.dataAutorizado = dataAutorizado;
+    }
+
+    public String getFotoBase64Image() {
+        return fotoBase64Image;
+    }
+
+    public void setFotoBase64Image(String fotoBase64Image) {
+        this.fotoBase64Image = fotoBase64Image;
+    }
+
+    public Boolean getAutorizado() {
+        return autorizado;
+    }
+
+    public void setAutorizado(Boolean autorizado) {
+        this.autorizado = autorizado;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
