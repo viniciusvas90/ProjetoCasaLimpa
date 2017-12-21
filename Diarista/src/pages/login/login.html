@@ -10,38 +10,53 @@
 <ion-content padding>
 
   <div *ngIf="showLogin">
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="model.email"></ion-input>
-    </ion-item>
+    <form [formGroup]="formGroupLogin" (ngSubmit)="login()">
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="emailLogin" [(ngModel)]="model.email"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Senha</ion-label>
-      <ion-input type="password" [(ngModel)]="model.password"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input type="password" formControlName="passwordLogin" [(ngModel)]="model.password"></ion-input>
+      </ion-item>
+      <br/>
+      <button ion-button color="primary" full type="submit" [disabled]="!formGroupLogin.valid">Login</button>
+      <button ion-button color="secondary" full (click)="doRegister()">Não tenho cadastro</button>
+    </form>
   </div>
 
   <div *ngIf="!showLogin">
+    <form [formGroup]="formGroupRegister" (ngSubmit)="register()">
+      <ion-item>
+        <ion-label floating>Nome</ion-label>
+        <ion-input type="text" formControlName="nome" [(ngModel)]="model.nome"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="model.nome"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="email" [(ngModel)]="model.email"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="model.email"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label floating>Confirme seu Email</ion-label>
+        <ion-input type="email" formControlName="email2" [(ngModel)]="model.email2" (blur)="emailValido()"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="model.password"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input type="password" formControlName="password" [(ngModel)]="model.password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Confirme sua Senha</ion-label>
+        <ion-input type="password" formControlName="password2" [(ngModel)]="model.password2"></ion-input>
+      </ion-item>
+
+      <br/>
+      <button ion-button color="primary" full type="submit" [disabled]="!formGroupRegister.valid">Cadastrar-se</button>
+      <button ion-button color="secondary" full (click)="doLogin()">Já tenho cadastro</button>
+    </form>
   </div>
-
-    <button ion-button color="primary" full (click)="login()" *ngIf="showLogin">Login</button>
-    <button ion-button color="secondary" full (click)="doRegister()" *ngIf="showLogin">Não tenho cadastro</button>
-    <button ion-button color="primary" full (click)="register()" *ngIf="!showLogin">Cadastrar-se</button>
-    <button ion-button color="secondary" full (click)="doLogin()" *ngIf="!showLogin">Já tenho cadastro</button>
 
 </ion-content>

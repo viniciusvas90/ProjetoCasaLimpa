@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { UsersProvider } from '../../providers/users/users';
 import { Utils } from '../../utils';
 import { Usuario } from '../../models/usuario';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -12,15 +13,46 @@ import { Usuario } from '../../models/usuario';
 export class LoginPage {
 
   showLogin:boolean = true;
-  model: User;
+  model: User = new User();
+
+  formGroupLogin: FormGroup;
+  formGroupRegister: FormGroup;
+  emailLogin: AbstractControl;
+  passwordLogin: AbstractControl;
 
   constructor(public navCtrl: NavController,
               private util:Utils,
-              private usersProvider: UsersProvider) {
-    this.model = new User();
+              private usersProvider: UsersProvider,
+              private formBuilder: FormBuilder) {
     this.model.email = '';
+    this.model.email2 = '';
     this.model.password = '';
+    this.model.password2 = '';
     this.model.nome = '';
+
+    this.formGroupLogin = formBuilder.group({
+      emailLogin:['', Validators.required],
+      passwordLogin:['', Validators.required]
+    });
+
+    this.formGroupRegister = formBuilder.group({
+      nome:['', Validators.required],
+      email:['', Validators.required],
+      password:['', Validators.required],
+      email2:['', Validators.required],
+      password2:['', Validators.required]
+    });
+
+    this.emailLogin = this.formGroupLogin.controls['emailLogin'];
+    this.passwordLogin = this.formGroupLogin.controls['passwordLogin'];
+  }
+
+  emailValido(control: FormControl) {
+    console.log('teste');
+    if (control.value == this.model.email) {
+      return null;
+    }
+    return {"Os emails informados não conferem": true};
   }
 
   ionViewDidLoad() {}
@@ -80,6 +112,17 @@ export class LoginPage {
 
   register() {
     console.log('register()');
+
+    if (this.model.email !== this.model.email2) {
+      this.util.showToast('Os emails informados não conferem', 3000);
+      return;
+    }
+
+    if (this.model.password !== this.model.password2) {
+      this.util.showToast('As senhas informadas não conferem', 3000);
+      return;
+    }
+
     this.util.showLoading('Realizando Cadastro...');
 
     this.usersProvider.register(this.model.email, this.model.password, this.model.nome)
@@ -89,9 +132,13 @@ export class LoginPage {
         this.doLogin();
       })
       .catch((error: any) => {
-        console.log(JSON.stringify(error));
+        let mensagem = error.status;
+        if (error.status == 500) mensagem = 'Sistema indisponível.';
+        if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
+        if (error.status == 432) mensagem = 'Erro inesperado.';
+        console.log('register() erro: '+JSON.stringify(error));
         this.util.dismissLoading();
-        this.util.showToast('Erro ao criar o usuário. Erro: ' + error.message, 3000);
+        this.util.showToast('Erro ao criar o usuário. Erro: ' + mensagem, 5000);
       });
   }
     
@@ -100,5 +147,7 @@ export class LoginPage {
 export class User {
   email: string;
   password: string;
+  email2: string;
+  password2: string;
   nome: string;
 }
