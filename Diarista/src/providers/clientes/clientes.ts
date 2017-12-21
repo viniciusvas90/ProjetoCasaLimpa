@@ -1,58 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { UsersProvider } from '../users/users';
-import { Diarista } from '../../models/diarista';
+import { Cliente } from '../../models/cliente';
 import { Usuario } from '../../models/usuario';
 
 /*
-  Generated class for the DiaristasProvider provider.
+  Generated class for the ClientesProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class DiaristasProvider {
+export class ClientesProvider {
 
   private API_URI = 'http://localhost:8100/api';
 
   constructor(private http: Http,
               private storage: Storage,
               private usersProvider: UsersProvider) {
-    console.log('DiaristasProvider');
+    console.log('Hello ClientesProvider Provider');
   }
 
-  public insert(diarista: Diarista) {
-    //let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
-    return this.save('diarista', diarista  );
-  }
-
-  public update(key: string, diarista: Diarista) {
-    return this.save(key, diarista);
-  }
-
-  private save(key: string, diarista: Diarista) {
-    return this.storage.set(key, diarista);
-  }
-
-  public remove(key: string) {
-    return this.storage.remove(key);
-  }
-
-  public loadDiaristaStorage() : Promise<any> {
-    return this.storage.get('diarista');
-  }
-
-  create(diarista: Diarista) {
+  create(cliente: Cliente) {
     console.log('create(data)');
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', 'Bearer '+this.usersProvider.getToken());
       this.usersProvider.getUsuarioStorage().then((user: Usuario) => {
-        diarista.usuario = user;
-        this.http.post(this.API_URI+"/diaristas", diarista, {headers: headers})
+        cliente.usuario = user;
+        this.http.post(this.API_URI+"/clientes", cliente, {headers: headers})
         .subscribe((result: any) => {
           this.usersProvider.storeUser(user.email);
           resolve(result);
@@ -67,7 +45,7 @@ export class DiaristasProvider {
   getAllPendant() {
     console.log('getAllPendant()');
     return new Promise((resolve, reject) => {
-      this.http.get(this.API_URI+"/diaristas/pendentes")
+      this.http.get(this.API_URI+"/clientes/pendentes")
         .subscribe((result: any) => {
           console.log('sucesso');
           resolve(result.json());
@@ -78,4 +56,26 @@ export class DiaristasProvider {
         });
     });
   }
+
+  public insert(cliente: Cliente) {
+    //let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
+    return this.save('cliente', cliente  );
+  }
+
+  public update(key: string, cliente: Cliente) {
+    return this.save(key, cliente);
+  }
+
+  private save(key: string, cliente: Cliente) {
+    return this.storage.set(key, cliente);
+  }
+
+  public remove(key: string) {
+    return this.storage.remove(key);
+  }
+
+  public loadClienteStorage() : Promise<any> {
+    return this.storage.get('cliente');
+  }
+
 }

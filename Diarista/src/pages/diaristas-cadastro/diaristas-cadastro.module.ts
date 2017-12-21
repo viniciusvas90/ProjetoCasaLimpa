@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { CadastroDiaristasPage } from './cadastro-diaristas';
+import { DiaristasCadastroPage } from './diaristas-cadastro';
 import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider } from '../../providers/diaristas/diaristas';
 
@@ -15,14 +15,14 @@ class CameraMock extends Camera {
 
 @NgModule({
   declarations: [
-    CadastroDiaristasPage,
+    DiaristasCadastroPage,
   ],
   imports: [
-    IonicPageModule.forChild(CadastroDiaristasPage),
+    IonicPageModule.forChild(DiaristasCadastroPage),
   ],
   providers: [
     { provide: Camera, useClass: CameraMock},
     DiaristasProvider
   ]
 })
-export class CadastroDiaristasPageModule {}
+export class DiaristasCadastroPageModule {}

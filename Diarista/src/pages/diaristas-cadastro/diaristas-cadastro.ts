@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { IonicPage, Platform } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { DiaristasProvider, Diarista } from '../../providers/diaristas/diaristas';
+import { DiaristasProvider } from '../../providers/diaristas/diaristas';
 import { Utils } from '../../utils';
 import 'rxjs/add/operator/catch';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { Diarista } from '../../models/diarista';
 
 @IonicPage()
 @Component({
-  selector: 'page-cadastro-diaristas',
-  templateUrl: 'cadastro-diaristas.html',
+  selector: 'page-diaristas-cadastro',
+  templateUrl: 'diaristas-cadastro.html',
 })
-export class CadastroDiaristasPage {
+export class DiaristasCadastroPage {
   diarista: Diarista;
   passo = 1;
   recomendacao = { nome: "", contato: "" };
@@ -36,7 +37,7 @@ export class CadastroDiaristasPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroDiaristasPage');
+    console.log('ionViewDidLoad DiaristasCadastroPage');
     this.initializeBackButtonCustomHandler();
     this.diaristasProvider.loadDiaristaStorage().then((data) => {
       if (data) {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import { Usuario } from '../../models/usuario';
 
 /*
   https://www.djamware.com/post/58c1703e80aca7585c808ec1/step-by-step-tutorial-building-ionic-2-rest-api-authentication
@@ -142,12 +143,4 @@ export class UsersProvider {
     this.destroySession();
   }
 
-}
-
-export class Usuario {
-  id : number;
-  nome: string;
-  email: string;
-  password: string;
-  perfil: number;
 }

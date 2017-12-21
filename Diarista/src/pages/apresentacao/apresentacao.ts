@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { UsersProvider, Usuario } from '../../providers/users/users';
+import { UsersProvider } from '../../providers/users/users';
+import { Usuario } from '../../models/usuario';
 
 /**
  * Generated class for the ApresentacaoPage page.

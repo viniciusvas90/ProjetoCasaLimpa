@@ -28,7 +28,7 @@ export class MyApp {
   openPage(option) {
     console.log(option);
     if (option == 'cliente') this.nav.push("ClientesPage");
-    if (option == 'diarista') this.nav.push("CadastroDiaristasPage");
+    if (option == 'diarista') this.nav.push("DiaristasCadastroPage");
     if (option == 'home') this.nav.push("HomePage");
   }
 

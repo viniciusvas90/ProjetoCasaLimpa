@@ -35,6 +35,7 @@ public class Cliente {
     private String nome;
     @Column(nullable = false, unique = true)
     private String cpf;
+    private String telefone;
     private Boolean autorizado;
     @Column(updatable = false, nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -137,5 +138,13 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { UsersProvider } from '../providers/users/users';
 import { Utils } from '../utils';
+import { ClientesProvider } from '../providers/clientes/clientes';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { Utils } from '../utils';
     DiaristasProvider,
     UsersProvider,
     Utils,
-    DatePipe
+    DatePipe,
+    ClientesProvider
   ]
 })
 export class AppModule {}
