@@ -32,7 +32,7 @@ export class DiaristasCadastroPage {
               private diaristasProvider: DiaristasProvider,
               private navContrl: NavController) {
     this.diarista = new Diarista();
-    this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
+    //this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
     this.diarista.recomendacoes = new Array;
   }
 
