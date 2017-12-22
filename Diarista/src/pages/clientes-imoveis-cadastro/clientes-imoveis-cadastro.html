@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Fechar</button>
+    </ion-buttons>
+    <ion-title>Cadastro de Imóveis</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formGroup" (ngSubmit)="salvar()">
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="imovel.descricao" formControlName="descricao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo</ion-label>
+      <ion-select [(ngModel)]="imovel.tipo" formControlName="tipo" interface="popover">
+        <ion-option value="">Selecione...</ion-option>
+        <ion-option value="Residência (Casa)">Residência (Casa)</ion-option>
+        <ion-option value="Apartamento">Apartamento</ion-option>
+        <ion-option value="Eescritório">Eescritório</ion-option>
+        <ion-option value="Empresa">Empresa</ion-option>
+        <ion-option value="Chácara">Chácara</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>CEP</ion-label>
+      <ion-input type="number" [(ngModel)]="imovel.endereco.cep" formControlName="cep"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Endereço</ion-label>
+      <ion-input type="text" [(ngModel)]="imovel.endereco.endereco" formControlName="endereco"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Número</ion-label>
+      <ion-input type="number" [(ngModel)]="imovel.endereco.numero" formControlName="numero"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Bairro</ion-label>
+      <ion-input type="text" [(ngModel)]="imovel.endereco.bairro" formControlName="bairro"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Quantidade de Cômodos</ion-label>
+      <ion-input type="number" [(ngModel)]="imovel.qtdComodos" formControlName="qtdComodos"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Metros Quadrados</ion-label>
+      <ion-input type="number" [(ngModel)]="imovel.metrosQuadrados" formControlName="metrosQuadrados"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Possui Animais?</ion-label>
+      <ion-checkbox [(ngModel)]="imovel.temAnimais" formControlName="temAnimais"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="imovel.temAnimais">
+      <ion-label floating>Animais</ion-label>
+      <ion-input type="text" [(ngModel)]="imovel.animais" formControlName="animais"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Possui Crianças?</ion-label>
+      <ion-checkbox [(ngModel)]="imovel.temCriancas" formControlName="temCriancas"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="imovel.temCriancas">
+      <ion-label floating>Quantidade de Crianças</ion-label>
+      <ion-input type="text" [(ngModel)]="imovel.qtdCriancas" formControlName="qtdCriancas"></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of cliente.imoveis">
+        <ion-item (click)="edit(item)">
+          {{item.tipo}}: {{item.decricao}}
+        </ion-item>
+
+        <ion-item-options>
+          <button danger (click)="delete(item)">Excluir</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </form>
+</ion-content>

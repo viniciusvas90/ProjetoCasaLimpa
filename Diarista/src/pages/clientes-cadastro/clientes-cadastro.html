@@ -5,14 +5,28 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>ClientesCadastro</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar color="primary">
+    <ion-title>Sou um(a) Cliente</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-
+  <form [formGroup]="formGroup">
+    <ion-item>
+      <ion-label floating>CPF</ion-label>
+      <ion-input type="number" [(ngModel)]="cliente.cpf" formControlName="cpf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Telefone para contato</ion-label>
+      <ion-input type="text" [(ngModel)]="cliente.telefone" formControlName="telefone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button style="width:50%" (click)="escolherFoto()">Foto da Galeria</button>
+      <button ion-button style="width:50%" (click)="tirarFoto()">Tirar Foto</button>
+    </ion-item>
+    <img [src]="cliente.fotoBase64Image" *ngIf="cliente.fotoBase64Image" />
+    <br />
+    <button ion-button full [disabled]="!formGroup.valid" (click)="salvar()">Enviar Cadastro</button>
+  </form>
 </ion-content>

@@ -14,7 +14,7 @@ export class HomePage {
     if (flag === 'diarista') {
       this.navCtrl.push("DiaristasCadastroPage");
     } else if (flag === 'cliente') {      
-      this.navCtrl.push("ClienteCadastroPage");
+      this.navCtrl.push("ClientesCadastroPage");
     }
   }
 

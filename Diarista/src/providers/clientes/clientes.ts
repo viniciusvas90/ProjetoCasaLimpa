@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { UsersProvider } from '../users/users';
 import { Cliente } from '../../models/cliente';
 import { Usuario } from '../../models/usuario';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the ClientesProvider provider.

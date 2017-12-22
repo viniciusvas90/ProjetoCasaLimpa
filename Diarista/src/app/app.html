@@ -7,12 +7,16 @@
         </ion-title>
       </ion-item>
       <ion-list>
-        <button ion-item (click)="openPage('home')" menuClose>Home</button>
+        <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{ p.title }}
+        </button>
+        <!--<button ion-item (click)="openPage('home')" menuClose>Home</button>
         <button ion-item (click)="openPage('cliente')" menuClose>Cliente</button>
         <button ion-item (click)="openPage('diarista')" menuClose>Diarista</button>
         <button ion-item (click)="logout()" menuClose>
           <ion-icon name="log-out"></ion-icon>
-        </button>
+        </button>-->
       </ion-list>
     </ion-content>
   </ion-menu>

@@ -30,7 +30,7 @@
     <form [formGroup]="formGroupRegister" (ngSubmit)="register()">
       <ion-item>
         <ion-label floating>Nome</ion-label>
-        <ion-input type="text" formControlName="nome" [(ngModel)]="model.nome"></ion-input>
+        <ion-input type="text" formControlName="nome" [(ngModel)]="model.nome" (ngModelChange)="model.nome = $event.toLocaleUpperCase()"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -40,7 +40,7 @@
 
       <ion-item>
         <ion-label floating>Confirme seu Email</ion-label>
-        <ion-input type="email" formControlName="email2" [(ngModel)]="model.email2" (blur)="emailValido()"></ion-input>
+        <ion-input type="email" formControlName="email2" [(ngModel)]="model.email2"></ion-input>
       </ion-item>
 
       <ion-item>

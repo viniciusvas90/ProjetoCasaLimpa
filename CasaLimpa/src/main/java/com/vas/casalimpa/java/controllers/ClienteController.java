@@ -5,9 +5,11 @@ package com.vas.casalimpa.java.controllers;
 
 import com.vas.casalimpa.java.VasUtils;
 import com.vas.casalimpa.java.data.model.Cliente;
+import com.vas.casalimpa.java.data.model.Imovel;
 import com.vas.casalimpa.java.data.model.PerfilEnum;
 import com.vas.casalimpa.java.data.model.Usuario;
 import com.vas.casalimpa.java.data.repository.IClienteRepository;
+import com.vas.casalimpa.java.data.repository.IImovelRepository;
 import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,11 +36,13 @@ public class ClienteController {
 
     private final IUsuarioRepository usuarioRepository;
     private final IClienteRepository clienteRepository;
-    private final String caminho = "fotos"+File.separator+"clientes"+File.separator;
+    private final IImovelRepository imovelRepository;
+    private final String caminho = "fotos" + File.separator + "clientes" + File.separator;
 
-    public ClienteController(IUsuarioRepository usuarioRepository, IClienteRepository clienteRepository) {
+    public ClienteController(IUsuarioRepository usuarioRepository, IClienteRepository clienteRepository, IImovelRepository imovelRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
+        this.imovelRepository = imovelRepository;
     }
 
     @PostMapping
@@ -47,12 +51,20 @@ public class ClienteController {
         Usuario usuario = usuarioRepository.findOne(cliente.getUsuario().getId());
         usuario.setPerfil(PerfilEnum.Cliente.valorPerfil);
         usuarioRepository.save(usuario);
-        
+
         cliente.setNome(usuario.getNome());
         cliente.setUsuario(usuario);
         cliente = clienteRepository.save(cliente);
         this.salvarFoto(cliente.getFotoBase64Image(), "foto_" + cliente.getId() + "_" + cliente.getNome());
         return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/imoveis")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<Imovel> createCliente(@RequestBody Imovel imovel) throws Exception {
+        imovel.setCliente(clienteRepository.findOne(imovel.getCliente().getId()));
+        imovel = imovelRepository.save(imovel);
+        return new ResponseEntity<>(imovel, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/pendentes")

@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from
 })
 export class LoginPage {
 
-  showLogin:boolean = true;
+  showLogin: boolean = true;
   model: User = new User();
 
   formGroupLogin: FormGroup;
@@ -21,9 +21,9 @@ export class LoginPage {
   passwordLogin: AbstractControl;
 
   constructor(public navCtrl: NavController,
-              private util:Utils,
-              private usersProvider: UsersProvider,
-              private formBuilder: FormBuilder) {
+    private util: Utils,
+    private usersProvider: UsersProvider,
+    private formBuilder: FormBuilder) {
     this.model.email = '';
     this.model.email2 = '';
     this.model.password = '';
@@ -31,37 +31,29 @@ export class LoginPage {
     this.model.nome = '';
 
     this.formGroupLogin = formBuilder.group({
-      emailLogin:['', Validators.required],
-      passwordLogin:['', Validators.required]
+      emailLogin: ['', Validators.required],
+      passwordLogin: ['', Validators.required]
     });
 
     this.formGroupRegister = formBuilder.group({
-      nome:['', Validators.required],
-      email:['', Validators.required],
-      password:['', Validators.required],
-      email2:['', Validators.required],
-      password2:['', Validators.required]
+      nome: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      email2: ['', Validators.required],
+      password2: ['', Validators.required]
     });
 
     this.emailLogin = this.formGroupLogin.controls['emailLogin'];
     this.passwordLogin = this.formGroupLogin.controls['passwordLogin'];
   }
 
-  emailValido(control: FormControl) {
-    console.log('teste');
-    if (control.value == this.model.email) {
-      return null;
-    }
-    return {"Os emails informados não conferem": true};
-  }
+  ionViewDidLoad() { }
 
-  ionViewDidLoad() {}
-
-  ionViewWillEnter() {    
+  ionViewWillEnter() {
     this.usersProvider.loadSession().then(() => {
       if (this.usersProvider.estaLogado()) {
         this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
-          console.log("usuario.perfil",usuario.perfil);
+          console.log("usuario.perfil", usuario.perfil);
           switch (usuario.perfil) {
             case 0:
               this.navCtrl.push("AdminHomePage");
@@ -77,7 +69,7 @@ export class LoginPage {
           }
         });
       }
-    });    
+    });
   }
 
   doLogin() {
@@ -94,7 +86,7 @@ export class LoginPage {
     this.usersProvider.login(this.model.email, this.model.password)
       .then(() => {
         this.util.dismissLoading();
-        this.util.showToast('Login efetuado com sucesso.', 3000);        
+        this.util.showToast('Login efetuado com sucesso.', 3000);
         this.navCtrl.push("HomePage");
 
         this.usersProvider.storeUser(this.model.email);
@@ -104,9 +96,9 @@ export class LoginPage {
         if (error.status == 500) mensagem = 'Sistema indisponível.';
         if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
         if (error.status == 432) mensagem = 'Erro inesperado.';
-        console.log('login() erro: '+JSON.stringify(error));
+        console.log('login() erro: ' + JSON.stringify(error));
         this.util.dismissLoading();
-        this.util.showToast('Erro ao efetuar login: ' + mensagem,5000);
+        this.util.showToast('Erro ao efetuar login: ' + mensagem, 5000);
       });
   }
 
@@ -136,12 +128,12 @@ export class LoginPage {
         if (error.status == 500) mensagem = 'Sistema indisponível.';
         if (error.status == 401) mensagem = 'Email ou Senha incorretos.';
         if (error.status == 432) mensagem = 'Erro inesperado.';
-        console.log('register() erro: '+JSON.stringify(error));
+        console.log('register() erro: ' + JSON.stringify(error));
         this.util.dismissLoading();
         this.util.showToast('Erro ao criar o usuário. Erro: ' + mensagem, 5000);
       });
   }
-    
+
 }
 
 export class User {

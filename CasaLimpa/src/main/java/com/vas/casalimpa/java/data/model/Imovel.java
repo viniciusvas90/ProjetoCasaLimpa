@@ -27,6 +27,8 @@ public class Imovel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
+    private String descricao;
+    @Column(nullable = false)
     private String tipo;
     @Column(nullable = false)
     private int qtdComodos;
@@ -122,5 +124,13 @@ public class Imovel {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

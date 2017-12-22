@@ -27,7 +27,7 @@ public class Usuario {
     private String email;
     @Column(nullable = false)
     private String password;
-    private int perfil;
+    private Integer perfil;
 
     public int getId() {
         return id;
@@ -53,11 +53,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getPerfil() {
+    public Integer getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(int perfil) {
+    public void setPerfil(Integer perfil) {
         this.perfil = perfil;
     }
 

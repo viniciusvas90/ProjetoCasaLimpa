@@ -12,10 +12,12 @@ import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { UsersProvider } from '../providers/users/users';
 import { Utils } from '../utils';
 import { ClientesProvider } from '../providers/clientes/clientes';
+import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/clientes-imoveis-cadastro";
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    ClientesImoveisCadastroPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { ClientesProvider } from '../providers/clientes/clientes';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    ClientesImoveisCadastroPage
   ],
   providers: [
     StatusBar,
