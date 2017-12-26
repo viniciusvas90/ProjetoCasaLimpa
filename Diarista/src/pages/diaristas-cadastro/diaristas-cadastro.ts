@@ -157,17 +157,4 @@ export class DiaristasCadastroPage {
       }
     );
   }
-
-  //listar diaristas com cadastro pendente
-  getAllPendant() {
-    console.log('listar diaristas com cadastro pendente');
-    this.diaristasProvider.getAllPendant()
-      .then((result: any) => {
-        console.log('sucesso retornado do provider: '+JSON.stringify(result));
-      })
-      .catch((error: any) => {
-        console.log('erro retornado do provider:'+ JSON.stringify(error));
-        this.utils.showToast('Erro ao listar Diaristas com cadastro pendente.', 3000);
-      })
-  }
 }

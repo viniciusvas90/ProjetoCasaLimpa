@@ -2,17 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\models",
+    "\\src\\app",
     "\\src\\pages",
-    "\\src\\pages\\apresentacao",
-    "\\src\\pages\\clientes-cadastro",
-    "\\src\\pages\\clientes-imoveis-cadastro",
-    "\\src\\pages\\diaristas-cadastro",
-    "\\src\\pages\\login",
     "\\src\\providers",
-    "\\src\\providers\\clientes",
     "\\src\\providers\\diaristas"
   ],
-  "SelectedNode": "\\src\\pages\\clientes-imoveis-cadastro\\clientes-imoveis-cadastro.module.ts",
+  "SelectedNode": "\\src\\app\\app.html",
   "PreviewInSolutionExplorer": false
 }

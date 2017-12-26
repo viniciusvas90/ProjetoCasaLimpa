@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DiaristasProvider } from "../../providers/diaristas/diaristas";
+import { Utils } from "../../utils";
+import { Diarista } from "../../models/diarista";
+import { ClientesProvider } from "../../providers/clientes/clientes";
+import { Cliente } from "../../models/cliente";
 
 /**
  * Generated class for the AdminUserVerificationPage page.
@@ -15,11 +20,57 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminUserVerificationPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  listaDiaristasPendentes: Array<Diarista>;
+  listaClientesPendentes: Array<Cliente>;
+  usuario: string = "diaristas";
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private diaristasProvider: DiaristasProvider,
+    private clientesProvider: ClientesProvider,
+    private utils: Utils) {
+    this.listaDiaristasPendentes = new Array<Diarista>();
+    this.listaClientesPendentes = new Array<Cliente>();
+
+    this.listaDiaristasPendentes.push(new Diarista());
+    this.listaDiaristasPendentes.push(new Diarista());
+    this.listaDiaristasPendentes.push(new Diarista());
+
+    this.listaClientesPendentes.push(new Cliente());
+    this.listaClientesPendentes.push(new Cliente());
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminUserVerificationPage');
+  }
+
+  //listar diaristas com cadastro pendente
+  getAllDiaristasPendant() {
+    console.log('listar diaristas com cadastro pendente');
+    this.diaristasProvider.getAllPendant()
+      .then((result: Array<Diarista>) => {
+        console.log('sucesso retornado do provider: ' + JSON.stringify(result));
+        this.listaDiaristasPendentes = result;
+      })
+      .catch((error: any) => {
+        console.log('erro retornado do provider:' + JSON.stringify(error));
+        this.utils.showToast('Erro ao listar Diaristas com cadastro pendente.', 3000);
+      });
+  }
+
+  //listar clientes com cadastro pendente
+  getAllClientesPendant() {
+    console.log('listar diaristas com cadastro pendente');
+    this.clientesProvider.getAllPendant()
+      .then((result: Array<Cliente>) => {
+        console.log('sucesso retornado do provider: ' + JSON.stringify(result));
+        this.listaClientesPendentes = result;
+      })
+      .catch((error: any) => {
+        console.log('erro retornado do provider:' + JSON.stringify(error));
+        this.utils.showToast('Erro ao listar Clientes com cadastro pendente.', 3000);
+      });
   }
 
 }

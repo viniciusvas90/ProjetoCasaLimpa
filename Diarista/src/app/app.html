@@ -1,22 +1,6 @@
-<div *ngIf="showMenu()">
-  <ion-menu [content]="menu" persistent="true">
-    <ion-content>
-      <ion-item>
-        <ion-title>
-          EmpregApp
-        </ion-title>
-      </ion-item>
-      <ion-list>
-        <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
-          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{ p.title }}
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-</div>
 <ion-nav [root]="rootPage" #menu></ion-nav>
 <ion-tabs *ngIf="showMenu()">
-    <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-    <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
+  <ion-list>
+    <ion-tab *ngFor="let tab of tabsList" [root]="tab.root" [tabTitle]="tab.tabTitle" [tabIcon]="tab.tabIcon"></ion-tab>
+  </ion-list>
 </ion-tabs>

@@ -3,9 +3,9 @@
     "",
     "\\app",
     "\\pages",
-    "\\pages\\modal-new-workset",
+    "\\pages\\home",
     "\\pages\\workouts"
   ],
-  "SelectedNode": "\\app\\app.component.ts",
+  "SelectedNode": "\\app\\app.html",
   "PreviewInSolutionExplorer": false
 }

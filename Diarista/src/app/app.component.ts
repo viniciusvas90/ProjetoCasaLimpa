@@ -6,12 +6,10 @@ import { UsersProvider } from '../providers/users/users';
 import { LoginPage } from '../pages/login/login';
 import { Usuario } from "../models/usuario";
 
-export interface PageInterface {
-  title: string;
-  pageName: string;
-  tabComponent?: any;
-  index?: number;
-  icon: string;
+export interface TabInterface {
+  root: string;
+  tabTitle: string;
+  tabIcon: string;
 }
 
 @Component({
@@ -22,10 +20,12 @@ export class MyApp {
   rootPage;
   @ViewChild(Nav) nav: NavController;
 
-  pages: PageInterface[];
-
-  tab1Root: any;
-  tab2Root: any;
+  tab1: any;
+  tab2: any;
+  tab3: any;
+  tab4: any;
+  tab5: any;
+  tabsList: TabInterface[];
 
   constructor(platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen,
@@ -46,36 +46,26 @@ export class MyApp {
       console.log('perfil', usuario.perfil);
       switch (usuario.perfil) {
         case 0:
-          this.pages = [
-            { title: 'Home', pageName: 'AdminHomePage', tabComponent: 'TabAdminHomePage', index: 0, icon: 'home' },
-            { title: 'Configurações', pageName: 'AdminConfigPage', tabComponent: 'TabAdminConfigPage', index: 1, icon: 'contacts' },
-            { title: 'Meus Dados', pageName: 'AdminInfoPage', tabComponent: 'TabAdminInfoPage', index: 2, icon: 'shuffle' },
+          this.tabsList = [
+            { root: 'AdminHomePage', tabTitle: 'Home', tabIcon: 'home' },
+            { root: 'AdminUserVerificationPage', tabTitle: 'Verificação de Usuários', tabIcon: 'information-circle' }
           ];
-
-          this.tab1Root = 'ClientesHomePage';
-          this.tab2Root = 'ClienteInfoPage';
           break;
 
         case 1:
-          this.pages = [
-            { title: 'Home', pageName: 'ClientesHomePage', tabComponent: 'TabClientesHomePage', index: 0, icon: 'home' },
-            { title: 'Configurações', pageName: 'ClienteConfigPage', tabComponent: 'TabClienteConfigPage', index: 1, icon: 'contacts' },
-            { title: 'Meus Dados', pageName: 'ClienteInfoPage', tabComponent: 'TabClienteInfoPage', index: 2, icon: 'shuffle' },
+          this.tabsList = [
+            { root: 'ClientesHomePage', tabTitle: 'Home', tabIcon: 'home' },
+            { root: 'ClienteInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
+            { root: 'ClienteConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
           ];
-
-          this.tab1Root = 'ClientesHomePage';
-          this.tab2Root = 'ClienteInfoPage';
           break;
 
         case 2:
-          this.pages = [
-            { title: 'Home', pageName: 'DiaristasHomePage', tabComponent: 'TabDiaristasHomePage', index: 0, icon: 'home' },
-            { title: 'Configurações', pageName: 'DiaristaConfigPage', tabComponent: 'TabDiaristaConfigPage', index: 1, icon: 'contacts' },
-            { title: 'Meus Dados', pageName: 'DiaristaInfoPage', tabComponent: 'TabDiaristaInfoPage', index: 2, icon: 'shuffle' },
+          this.tabsList = [
+            { root: 'DiaristasHomePage', tabTitle: 'Home', tabIcon: 'home' },
+            { root: 'DiaristaInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
+            { root: 'DiaristaConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
           ];
-
-          this.tab1Root = 'DiaristasHomePage';
-          this.tab2Root = 'DiaristaInfoPage';
           break;
       }
     });
@@ -88,43 +78,5 @@ export class MyApp {
   logout(): void {
     this.usersProvider.logout();
     this.nav.push(LoginPage);
-  }
-
-  openPage(page: PageInterface) {
-    let params = {};
-
-    // The index is equal to the order of our tabs inside tabs.ts
-    if (page.index) {
-      params = { tabIndex: page.index };
-    }
-
-    // The active child nav is our Tabs Navigation
-    if (this.nav.getActiveChildNavs() && page.index != undefined) {
-      alert(1);
-      this.nav.getActiveChildNav().select(page.index);
-    } else {
-      alert(2);
-      // Tabs are not active, so reset the root page 
-      // In this case: moving to or from SpecialPage
-      this.nav.setRoot(page.pageName, params);
-    }
-  }
-
-  isActive(page: PageInterface) {
-    // Again the Tabs Navigation
-    let childNav = this.nav.getActiveChildNav();
-
-    if (childNav) {
-      if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'secondary';
-      }
-      return;
-    }
-
-    // Fallback needed when there is no active childnav (tabs not active)
-    if (this.nav.getActive() && this.nav.getActive().name === page.pageName) {
-      return 'secondary';
-    }
-    return;
   }
 }
