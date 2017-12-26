@@ -4,7 +4,7 @@ import { ClientesImoveisCadastroPage } from "./clientes-imoveis-cadastro";
 
 @NgModule({
   declarations: [
-    ClientesCadastroImoveisPage,
+    ClientesImoveisCadastroPage,
   ],
   imports: [
     IonicPageModule.forChild(ClientesImoveisCadastroPage),
