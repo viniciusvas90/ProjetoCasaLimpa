@@ -42,33 +42,35 @@ export class MyApp {
   }
 
   private constroiMenu(): void {
-    this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
-      console.log('perfil', usuario.perfil);
-      switch (usuario.perfil) {
-        case 0:
-          this.tabsList = [
-            { root: 'AdminHomePage', tabTitle: 'Home', tabIcon: 'home' },
-            { root: 'AdminUserVerificationPage', tabTitle: 'Verificação de Usuários', tabIcon: 'information-circle' }
-          ];
-          break;
+    if (this.usersProvider.estaLogado()) {
+      this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
+        console.log('perfil', usuario.perfil);
+        switch (usuario.perfil) {
+          case 0:
+            this.tabsList = [
+              { root: 'AdminHomePage', tabTitle: 'Home', tabIcon: 'home' },
+              { root: 'AdminUserVerificationPage', tabTitle: 'Verificação de Usuários', tabIcon: 'information-circle' }
+            ];
+            break;
 
-        case 1:
-          this.tabsList = [
-            { root: 'ClientesHomePage', tabTitle: 'Home', tabIcon: 'home' },
-            { root: 'ClienteInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
-            { root: 'ClienteConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
-          ];
-          break;
+          case 1:
+            this.tabsList = [
+              { root: 'ClientesHomePage', tabTitle: 'Home', tabIcon: 'home' },
+              { root: 'ClienteInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
+              { root: 'ClienteConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
+            ];
+            break;
 
-        case 2:
-          this.tabsList = [
-            { root: 'DiaristasHomePage', tabTitle: 'Home', tabIcon: 'home' },
-            { root: 'DiaristaInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
-            { root: 'DiaristaConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
-          ];
-          break;
-      }
-    });
+          case 2:
+            this.tabsList = [
+              { root: 'DiaristasHomePage', tabTitle: 'Home', tabIcon: 'home' },
+              { root: 'DiaristaInfoPage', tabTitle: 'Meus Dados', tabIcon: 'information-circle' },
+              { root: 'DiaristaConfigPage', tabTitle: 'Configuração', tabIcon: 'information-circle' }
+            ];
+            break;
+        }
+      });
+    }
   }
 
   showMenu() {
