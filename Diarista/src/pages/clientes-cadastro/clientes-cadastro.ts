@@ -86,6 +86,7 @@ export class ClientesCadastroPage {
     this.clientesProvider.create(this.cliente).then(
       (result: any) => {
         this.utils.showToast('Solicitação de cadastro como Cliente enviado. Código: ' + JSON.parse(result._body).id, 3000);
+        this.navCtrl.setRoot('ApresentacaoPage');
         this.navCtrl.popToRoot();
       }
     ).catch((error: any) => {

@@ -44,12 +44,13 @@ export class ApresentacaoPage {
   }
 
   ionViewWillEnter() {
+    console.log('getViews', this.navCtrl.getViews());
     this.usersProvider.loadSession().then(() => {
       if (this.usersProvider.estaLogado()) {
         this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
           console.log("usuario.perfil", usuario ? usuario.perfil : 'usuario undefined');
           if (usuario) {
-            if (usuario.perfil) {
+            if (usuario.perfil || usuario.perfil===0) {
               this.navCtrl.setRoot("UserTabsPage");
               this.navCtrl.popToRoot();
             } else {

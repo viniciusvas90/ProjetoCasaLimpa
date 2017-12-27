@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,12 +14,12 @@ import { ClientesProvider } from '../providers/clientes/clientes';
 import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/clientes-imoveis-cadastro";
 import { OptionsComponent } from "../components/options/options";
 import { UtilsProvider } from '../providers/utils/utils';
+import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
   declarations: [
     MyApp,
-    ClientesImoveisCadastroPage,
-    OptionsComponent
+    ClientesImoveisCadastroPage
   ],
   imports: [
     BrowserModule,
@@ -28,13 +28,13 @@ import { UtilsProvider } from '../providers/utils/utils';
       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    HttpModule
+    HttpModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ClientesImoveisCadastroPage,
-    OptionsComponent
+    ClientesImoveisCadastroPage
   ],
   providers: [
     StatusBar,
@@ -45,6 +45,9 @@ import { UtilsProvider } from '../providers/utils/utils';
     UtilsProvider,
     DatePipe,
     ClientesProvider
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class AppModule {}

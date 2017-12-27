@@ -137,6 +137,7 @@ export class DiaristasCadastroPage {
   }
 
   salvar() {
+    this.utils.showLoading('Salvando dados...');
     this.diaristasProvider.insert(this.diarista)
       .then(() => {
         console.log("diarista salva: " + JSON.stringify(this.diarista.cpf));
@@ -149,7 +150,10 @@ export class DiaristasCadastroPage {
       .then(
       (result: any) => {
         this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: ' + JSON.parse(result._body).id, 3000);
-        this.navContrl.pop();
+        console.log('getViews', this.navContrl.getViews());
+        this.utils.dismissLoading();
+        this.navContrl.setRoot('ApresentacaoPage');
+        this.navContrl.popToRoot();
       })
       .catch(
       (error: any) => {
