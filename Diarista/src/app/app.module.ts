@@ -10,14 +10,16 @@ import { DatePipe } from '@angular/common';
 import { MyApp } from './app.component';
 import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { UsersProvider } from '../providers/users/users';
-import { Utils } from '../utils';
 import { ClientesProvider } from '../providers/clientes/clientes';
 import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/clientes-imoveis-cadastro";
+import { OptionsComponent } from "../components/options/options";
+import { UtilsProvider } from '../providers/utils/utils';
 
 @NgModule({
   declarations: [
     MyApp,
-    ClientesImoveisCadastroPage
+    ClientesImoveisCadastroPage,
+    OptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ClientesImoveisCadastroPage
+    ClientesImoveisCadastroPage,
+    OptionsComponent
   ],
   providers: [
     StatusBar,
@@ -39,7 +42,7 @@ import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DiaristasProvider,
     UsersProvider,
-    Utils,
+    UtilsProvider,
     DatePipe,
     ClientesProvider
   ]

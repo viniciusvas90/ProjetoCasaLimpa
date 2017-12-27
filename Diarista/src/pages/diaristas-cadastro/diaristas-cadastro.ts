@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, Platform } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider } from '../../providers/diaristas/diaristas';
-import { Utils } from '../../utils';
 import 'rxjs/add/operator/catch';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { Diarista } from '../../models/diarista';
+import { Endereco } from "../../models/endereco";
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -23,16 +24,16 @@ export class DiaristasCadastroPage {
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
-    sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
   }
 
-  constructor(private utils: Utils,
-              private camera: Camera,
-              public platform: Platform,
-              private diaristasProvider: DiaristasProvider,
-              private navContrl: NavController) {
+  constructor(private utils: UtilsProvider,
+    private camera: Camera,
+    public platform: Platform,
+    private diaristasProvider: DiaristasProvider,
+    private navContrl: NavController) {
     this.diarista = new Diarista();
-    //this.diarista.endereco = {bairro:"",numero:"",cep:"",endereco:""};
+    this.diarista.endereco = new Endereco();
     this.diarista.recomendacoes = new Array;
   }
 
@@ -47,19 +48,19 @@ export class DiaristasCadastroPage {
   }
 
   ionViewWillLeave() {
-      // Unregister the custom back button action for this page
-      this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+    // Unregister the custom back button action for this page
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
   }
 
   public initializeBackButtonCustomHandler(): void {
-      this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
-          this.voltar();
-      }, 10);
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+      this.voltar();
+    }, 10);
   }
 
-  private avancar() : void { this.passo++; }
+  private avancar(): void { this.passo++; }
 
-  private voltar() : void {
+  private voltar(): void {
     if (this.passo > 1) this.passo--;
   }
 
@@ -73,19 +74,19 @@ export class DiaristasCadastroPage {
       return;
     }
     var item = this.recomendacao;
-    this.recomendacao = { nome: "", contato: ""};
+    this.recomendacao = { nome: "", contato: "" };
     this.diarista.recomendacoes.push(item);
   }
 
   edit(recomendacao) {
-      /*if (data) {
-        this.dao.update(data, (recomendacao) => {
-          let toast = this.utils',on: 3000,
-            position: 'bottom'
-          });
-          toast.present();
+    /*if (data) {
+      this.dao.update(data, (recomendacao) => {
+        let toast = this.utils',on: 3000,
+          position: 'bottom'
         });
-      }*/
+        toast.present();
+      });
+    }*/
   }
 
   delete(recomendacao) {
@@ -93,7 +94,7 @@ export class DiaristasCadastroPage {
     this.list();*/
   }
 
-  tirarFoto() : void {
+  tirarFoto(): void {
     this.options.sourceType = this.camera.PictureSourceType.CAMERA;
     this.utils.showLoading("Carregando foto...");
     this.camera.getPicture(this.options).then((imageData) => {
@@ -106,7 +107,7 @@ export class DiaristasCadastroPage {
     });
   }
 
-  escolherFoto() : void {
+  escolherFoto(): void {
     this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
     this.utils.showLoading("Carregando foto...");
     this.camera.getPicture(this.options).then((imageData) => {
@@ -119,7 +120,7 @@ export class DiaristasCadastroPage {
     });
   }
 
-  formOk() : boolean {
+  formOk(): boolean {
     switch (this.passo) {
       case 1:
         if (this.diarista.cpf && this.diarista.telefone) return true;
@@ -138,23 +139,23 @@ export class DiaristasCadastroPage {
   salvar() {
     this.diaristasProvider.insert(this.diarista)
       .then(() => {
-        console.log("diarista salva: "+JSON.stringify(this.diarista.cpf));
+        console.log("diarista salva: " + JSON.stringify(this.diarista.cpf));
       })
       .catch(() => {
         console.log("erro ao salvar diarista");
       });
 
-    this.diaristasProvider.create(this.diarista).then(
+    this.diaristasProvider.create(this.diarista)
+      .then(
       (result: any) => {
-        this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: '+JSON.parse(result._body).id, 3000);
-        this.navContrl.popToRoot();
-      }
-    ).catch(
+        this.utils.showToast('Solicitação de cadastro como Diarista enviado. Código: ' + JSON.parse(result._body).id, 3000);
+        this.navContrl.pop();
+      })
+      .catch(
       (error: any) => {
         let mensagem = error.status;
         if (error.status == 500) mensagem = 'Sistema indisponível.';
-        this.utils.showToast('Erro ao Solicitar cadastro como Diarista: '+mensagem, 3000);
-      }
-    );
+        this.utils.showToast('Erro ao Solicitar cadastro como Diarista: ' + mensagem, 3000);
+      });
   }
 }

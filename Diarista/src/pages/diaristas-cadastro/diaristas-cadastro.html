@@ -54,7 +54,7 @@
     <ion-list *ngIf="passo === 4">
       <ion-item>
         <ion-label floating>Nome</ion-label>
-        <ion-input type="text" [(ngModel)]="recomendacao.nome" name="nome" (ngModelChange)="model.nome = $event.toLocaleUpperCase()"></ion-input>
+        <ion-input type="text" [(ngModel)]="recomendacao.nome" name="nome" (ngModelChange)="recomendacao.nome = $event.toLocaleUpperCase()"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Telefone para Contato</ion-label>

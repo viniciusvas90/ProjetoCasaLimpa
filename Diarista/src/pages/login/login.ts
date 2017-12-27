@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { UsersProvider } from '../../providers/users/users';
-import { Utils } from '../../utils';
 import { Usuario } from '../../models/usuario';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -21,7 +21,7 @@ export class LoginPage {
   passwordLogin: AbstractControl;
 
   constructor(public navCtrl: NavController,
-    private util: Utils,
+    private util: UtilsProvider,
     private usersProvider: UsersProvider,
     private formBuilder: FormBuilder) {
     this.model.email = '';
@@ -87,9 +87,9 @@ export class LoginPage {
       .then(() => {
         this.util.dismissLoading();
         this.util.showToast('Login efetuado com sucesso.', 3000);
-        this.navCtrl.push("HomePage");
-
-        this.usersProvider.storeUser(this.model.email);
+        this.usersProvider.storeUser(this.model.email).then(() => {
+          this.navCtrl.push("ApresentacaoPage");
+        });
       })
       .catch((error: any) => {
         let mensagem = error.status;

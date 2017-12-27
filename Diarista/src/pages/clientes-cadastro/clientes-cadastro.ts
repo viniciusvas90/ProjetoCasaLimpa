@@ -3,8 +3,8 @@ import { IonicPage, NavController, Platform } from 'ionic-angular';
 import { Cliente } from '../../models/cliente';
 import { Camera } from '@ionic-native/camera';
 import { ClientesProvider } from '../../providers/clientes/clientes';
-import { Utils } from '../../utils';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -25,7 +25,7 @@ export class ClientesCadastroPage {
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
   }
 
-  constructor(private utils: Utils,
+  constructor(private utils: UtilsProvider,
     public navCtrl: NavController,
     private camera: Camera,
     public platform: Platform,

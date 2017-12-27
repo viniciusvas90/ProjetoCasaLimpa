@@ -3,10 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\components",
+    "\\src\\components\\options",
     "\\src\\pages",
+    "\\src\\pages\\diaristas-home",
+    "\\src\\pages\\user-tabs",
     "\\src\\providers",
-    "\\src\\providers\\diaristas"
+    "\\src\\providers\\utils"
   ],
-  "SelectedNode": "\\src\\app\\app.html",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

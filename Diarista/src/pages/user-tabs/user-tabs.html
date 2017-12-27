@@ -1,0 +1,5 @@
+<ion-tabs #myTabs>
+  <ion-list>
+    <ion-tab *ngFor="let tab of tabsList" [root]="tab.root" [tabTitle]="tab.tabTitle" [tabIcon]="tab.tabIcon"></ion-tab>
+  </ion-list>
+</ion-tabs>

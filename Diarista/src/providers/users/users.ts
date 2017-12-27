@@ -14,7 +14,7 @@ import { Usuario } from '../../models/usuario';
 @Injectable()
 export class UsersProvider {
   private API_URI = 'http://localhost:8100/api';
-  //private API_URI = 'http://192.168.15.181:8100';
+  //private API_URI = 'http://192.168.15.181:8080';
   private logado : boolean;
   private token : string;
 
@@ -113,19 +113,24 @@ export class UsersProvider {
     });
   }
   
-  public storeUser(email: string) : void {
+  public storeUser(email: string) : Promise<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer '+this.getToken());
+    headers.append('Authorization', 'Bearer ' + this.getToken());
 
-    this.http.get(this.API_URI + '/logado/'+email, {headers: headers})
-      .subscribe((result: any) => {
-        let user: Usuario = JSON.parse(result._body);
-        this.storage.set('usuario', user);
-      },
-      (error) => {
-        console.log("erro = "+JSON.stringify(error));
-      });
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URI + '/logado/' + email, { headers: headers })
+        .subscribe((result: any) => {
+          let user: Usuario = JSON.parse(result._body);
+          this.storage.set('usuario', user).then(() => {
+            console.log('usuario guardado', user);
+            resolve();
+          });
+        },
+        (error) => {
+          console.error(JSON.stringify(error));
+        });
+    });
   }
 
   public logout(){

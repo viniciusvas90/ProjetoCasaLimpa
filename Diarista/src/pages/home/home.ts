@@ -10,7 +10,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController) { }
 
-  public direcionaCadastro(flag : string) : void {
+  public direcionaCadastro(flag: string): void {
+    console.log('flag',flag);
     if (flag === 'diarista') {
       this.navCtrl.push("DiaristasCadastroPage");
     } else if (flag === 'cliente') {      

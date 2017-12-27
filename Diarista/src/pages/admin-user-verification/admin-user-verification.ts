@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DiaristasProvider } from "../../providers/diaristas/diaristas";
-import { Utils } from "../../utils";
 import { Diarista } from "../../models/diarista";
 import { ClientesProvider } from "../../providers/clientes/clientes";
 import { Cliente } from "../../models/cliente";
+import { UtilsProvider } from '../../providers/utils/utils';
 
 /**
  * Generated class for the AdminUserVerificationPage page.
@@ -28,7 +28,7 @@ export class AdminUserVerificationPage {
     public navParams: NavParams,
     private diaristasProvider: DiaristasProvider,
     private clientesProvider: ClientesProvider,
-    private utils: Utils) {
+    private utils: UtilsProvider) {
     this.listaDiaristasPendentes = new Array<Diarista>();
     this.listaClientesPendentes = new Array<Cliente>();
 

@@ -36,37 +36,32 @@ export class ApresentacaoPage {
   ];
 
   constructor(public navCtrl: NavController,
-              private usersProvider: UsersProvider) {
+    private usersProvider: UsersProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ApresentacaoPage');
   }
-  
-  ionViewWillEnter() {    
+
+  ionViewWillEnter() {
     this.usersProvider.loadSession().then(() => {
       if (this.usersProvider.estaLogado()) {
         this.usersProvider.getUsuarioStorage().then((usuario: Usuario) => {
-          console.log("usuario.perfil",usuario.perfil);
-          switch (usuario.perfil) {
-            case 0:
-              this.navCtrl.push("AdminHomePage");
-              break;
-            case 1:
-              this.navCtrl.push("ClientesHomePage");
-              break;
-            case 2:
-              this.navCtrl.push("DiaristasHomePage");
-              break;
-            default:
+          console.log("usuario.perfil", usuario ? usuario.perfil : 'usuario undefined');
+          if (usuario) {
+            if (usuario.perfil) {
+              this.navCtrl.setRoot("UserTabsPage");
+              this.navCtrl.popToRoot();
+            } else {
               this.navCtrl.push("HomePage");
+            }
           }
         });
       }
-    });    
+    });
   }
 
-  public continuar(): void{
+  public continuar(): void {
     this.navCtrl.push("LoginPage");
   }
 
