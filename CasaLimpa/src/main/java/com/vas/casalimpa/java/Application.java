@@ -35,14 +35,11 @@ public class Application implements CommandLineRunner {
     }
 
     public void insereAdmins() {
-        Usuario usr = usuarioRepository.findOne(1);
-        usr.setPassword("$2a$10$N41XJfzoxsnxNWuNSTxfIuqahlLKS2D7m2lFpuQSzRawKMQJheIRK");
-        usuarioRepository.save(usr);
         if (usuarioRepository.count() == 0) {
             Usuario usuario = new Usuario();
             usuario.setEmail("vinicius.vas.ti@gmail.com");
             usuario.setNome("Vinícius");
-            usuario.setPassword("1234");
+            usuario.setPassword("$2a$10$N41XJfzoxsnxNWuNSTxfIuqahlLKS2D7m2lFpuQSzRawKMQJheIRK");
             usuario.setPerfil(0);
             usuarioRepository.save(usuario);
         }
