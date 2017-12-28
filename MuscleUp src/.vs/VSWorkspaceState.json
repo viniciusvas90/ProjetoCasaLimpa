@@ -3,9 +3,10 @@
     "",
     "\\app",
     "\\pages",
-    "\\pages\\home",
+    "\\pages\\exercises",
+    "\\pages\\modal-new-exercise",
     "\\pages\\workouts"
   ],
-  "SelectedNode": "\\app\\app.html",
+  "SelectedNode": "\\pages\\modal-new-exercise\\modal-new-exercise.ts",
   "PreviewInSolutionExplorer": false
 }

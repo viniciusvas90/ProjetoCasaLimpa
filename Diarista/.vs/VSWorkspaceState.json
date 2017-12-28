@@ -2,17 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
     "\\src\\components",
     "\\src\\components\\my-header",
-    "\\src\\components\\options",
+    "\\src\\components\\my-modal-header",
     "\\src\\pages",
-    "\\src\\pages\\admin-home",
-    "\\src\\pages\\apresentacao",
-    "\\src\\pages\\diaristas-cadastro",
-    "\\src\\pages\\login",
-    "\\src\\providers\\users"
+    "\\src\\pages\\admin-user-verification-details",
+    "\\src\\pages\\clientes-imoveis-cadastro",
+    "\\src\\providers",
+    "\\src\\providers\\clientes",
+    "\\src\\providers\\diaristas"
   ],
-  "SelectedNode": "\\src\\components\\components.module.ts",
+  "SelectedNode": "\\src\\components\\my-modal-header\\my-modal-header.ts",
   "PreviewInSolutionExplorer": false
 }

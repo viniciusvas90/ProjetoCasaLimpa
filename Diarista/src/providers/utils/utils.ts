@@ -10,6 +10,7 @@ import { OptionsComponent } from "../../components/options/options";
 */
 @Injectable()
 export class UtilsProvider {
+  private loadingActive: boolean = false;
 
   constructor(
     private toastCtrl: ToastController,
@@ -29,13 +30,21 @@ export class UtilsProvider {
   }
 
   public showLoading(msg: string) {
-    this.loader = this.loadingCtrl.create({
-      content: msg
-    });
-    this.loader.present();
+    if (!this.loadingActive) {
+      this.loadingActive = true;
+      this.loader = this.loadingCtrl.create({
+        content: msg
+      });
+      this.loader.present();
+    }
   }
 
-  public dismissLoading() { this.loader.dismiss(); }
+  public dismissLoading() {
+    if (this.loadingActive) {
+      this.loadingActive = false;
+      this.loader.dismiss();
+    }
+  }
 
   presentOptionsPopover(ev: UIEvent) {
     let popover = this.popoverCtrl.create(OptionsComponent);

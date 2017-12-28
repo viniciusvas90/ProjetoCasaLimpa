@@ -46,7 +46,10 @@ export class ClientesProvider {
   getAllPendant() {
     console.log('getAllPendant()');
     return new Promise((resolve, reject) => {
-      this.http.get(this.API_URI+"/clientes/pendentes")
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
+      this.http.get(this.API_URI + "/clientes/pendentes", { headers: headers })
         .subscribe((result: any) => {
           console.log('sucesso');
           resolve(result.json());
