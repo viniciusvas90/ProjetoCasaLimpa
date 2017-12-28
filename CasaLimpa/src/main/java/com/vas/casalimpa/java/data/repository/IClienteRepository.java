@@ -13,6 +13,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "cliente", path = "cliente")
 public interface IClienteRepository extends PagingAndSortingRepository<Cliente, Integer> {
 
-    List<Diarista> findByAutorizadoOrderByDataCadastro(Boolean autorizado);
+    List<Cliente> findByAutorizadoOrderByDataCadastro(Boolean autorizado);
 
 }

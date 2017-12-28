@@ -13,6 +13,7 @@ import com.vas.casalimpa.java.data.repository.IImovelRepository;
 import com.vas.casalimpa.java.data.repository.IUsuarioRepository;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 import javax.imageio.ImageIO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -78,8 +79,12 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/pendentes")
-    public Object listAllPendantCliente() {
-        return clienteRepository.findByAutorizadoOrderByDataCadastro(null);
+    public Object listAllPendantCliente() throws Exception {
+        List<Cliente> clientes =  clienteRepository.findByAutorizadoOrderByDataCadastro(null);
+        for (Cliente cliente : clientes) {
+            cliente.setFotoBase64Image(recuperarFoto("foto_" + cliente.getId() + "_" + cliente.getNome()));
+        }
+        return clientes;
     }
 
     @ExceptionHandler
@@ -91,12 +96,16 @@ public class ClienteController {
     private void salvarFoto(String fotoBase64Image, String nomeArquivo) throws Exception {
         fotoBase64Image = fotoBase64Image.replace("data:image/jpeg;base64,", "");
         try {
-            BufferedImage bufferedImage = VasUtils.decodeToImage(fotoBase64Image);
+            BufferedImage bufferedImage = VasUtils.base64ToImage(fotoBase64Image);
             File outputfile = new File(caminho + nomeArquivo + ".jpg");
             outputfile.mkdirs();
             ImageIO.write(bufferedImage, "jpg", outputfile);
         } catch (Exception ex) {
             throw new Exception("Erro ao salvar imagem");
         }
+    }
+
+    private String recuperarFoto(String nomeArquivo) throws Exception {
+        return VasUtils.imageToBase64(new File(caminho + nomeArquivo + ".jpg"));
     }
 }
