@@ -12,7 +12,6 @@ import { DiaristasProvider } from '../providers/diaristas/diaristas';
 import { UsersProvider } from '../providers/users/users';
 import { ClientesProvider } from '../providers/clientes/clientes';
 import { ClientesImoveisCadastroPage } from "../pages/clientes-imoveis-cadastro/clientes-imoveis-cadastro";
-import { OptionsComponent } from "../components/options/options";
 import { UtilsProvider } from '../providers/utils/utils';
 import { ComponentsModule } from "../components/components.module";
 

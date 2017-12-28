@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToastController, LoadingController, Loading, PopoverController, Events } from 'ionic-angular';
-import { UsersProvider } from "../users/users";
 import { OptionsComponent } from "../../components/options/options";
 
 /*

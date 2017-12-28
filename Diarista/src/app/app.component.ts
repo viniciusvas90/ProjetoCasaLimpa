@@ -3,8 +3,6 @@ import { Platform, NavController, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UsersProvider } from '../providers/users/users';
-import { LoginPage } from '../pages/login/login';
-import { Usuario } from "../models/usuario";
 
 @Component({
   templateUrl: 'app.html'

@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { OptionsComponent } from './options/options';
 import { MyHeaderComponent } from './my-header/my-header';
 import { IonicModule } from "ionic-angular";
