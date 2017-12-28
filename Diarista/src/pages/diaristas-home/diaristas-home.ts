@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -8,8 +7,9 @@ import { UtilsProvider } from '../../providers/utils/utils';
   templateUrl: 'diaristas-home.html',
 })
 export class DiaristasHomePage {
+  pageTitle: string = 'Diarista';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private utils: UtilsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

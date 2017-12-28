@@ -1,13 +1,6 @@
 
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-buttons end>
-      <button ion-button icon-only (click)="utils.presentOptionsPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Diarista</ion-title>
-  </ion-navbar>
+  <my-header [title]="pageTitle"></my-header>
 </ion-header>
 
 <ion-content padding>

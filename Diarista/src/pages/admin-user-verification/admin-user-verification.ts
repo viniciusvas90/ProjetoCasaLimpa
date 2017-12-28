@@ -19,6 +19,7 @@ import { UtilsProvider } from '../../providers/utils/utils';
   templateUrl: 'admin-user-verification.html',
 })
 export class AdminUserVerificationPage {
+  pageTitle: string = 'Verificação de Usuários';
 
   listaDiaristasPendentes: Array<Diarista>;
   listaClientesPendentes: Array<Cliente>;

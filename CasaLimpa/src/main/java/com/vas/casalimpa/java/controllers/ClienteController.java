@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -57,6 +58,15 @@ public class ClienteController {
         cliente = clienteRepository.save(cliente);
         this.salvarFoto(cliente.getFotoBase64Image(), "foto_" + cliente.getId() + "_" + cliente.getNome());
         return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+    }
+    
+    @PutMapping(value = "/authorize")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<Cliente> authorizeCliente(@RequestBody Cliente cliente) throws Exception {
+        cliente = clienteRepository.findOne(cliente.getId());
+        cliente.setAutorizado(Boolean.TRUE);
+        clienteRepository.save(cliente);
+        return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/imoveis")

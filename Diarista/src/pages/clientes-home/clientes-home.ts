@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'clientes-home.html',
 })
 export class ClientesHomePage {
+  pageTitle: string = 'Cliente Home';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

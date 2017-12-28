@@ -14,7 +14,8 @@ import { IonicModule } from "ionic-angular";
     MyHeaderComponent
   ],
   entryComponents: [
-    MyHeaderComponent
+    MyHeaderComponent,
+    OptionsComponent
   ]
 })
 export class ComponentsModule { }

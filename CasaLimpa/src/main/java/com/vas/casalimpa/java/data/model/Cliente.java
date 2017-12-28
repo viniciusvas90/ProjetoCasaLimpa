@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
@@ -27,7 +28,7 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Cliente {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -53,13 +54,20 @@ public class Cliente {
     @OneToOne(optional = true)
     @JoinColumn(unique = true)
     private Usuario usuario;
-    
+
     @Transient
     private String fotoBase64Image;
 
     @PrePersist
     void onInsert() {
         this.dataCadastro = new Date();
+    }
+    
+    @PreUpdate
+    void onUpdate() {
+        if (this.autorizado) {
+            this.dataAutorizado = new Date();
+        }
     }
 
     public int getId() {
@@ -101,7 +109,7 @@ public class Cliente {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public String getDataCadastro() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return sdf.format(dataCadastro);
@@ -111,7 +119,7 @@ public class Cliente {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return dataAutorizado != null ? sdf.format(dataAutorizado) : null;
     }
-        
+
     public void setDataAutorizado(Date dataAutorizado) {
         this.dataAutorizado = dataAutorizado;
     }

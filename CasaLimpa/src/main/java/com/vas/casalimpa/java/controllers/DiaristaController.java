@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -75,6 +76,15 @@ public class DiaristaController {
         diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
         this.salvarFoto(diarista.getFotoBase64Image(), "foto_" + diarista.getId() + "_" + diarista.getNome());
         return new ResponseEntity<>(diarista, HttpStatus.CREATED);
+    }
+    
+    @PutMapping(value = "/authorize")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<Diarista> authorizeCliente(@RequestBody Diarista diarista) throws Exception {
+        diarista = diaristaRepository.findOne(diarista.getId());
+        diarista.setAutorizado(Boolean.TRUE);
+        diaristaRepository.save(diarista);
+        return new ResponseEntity<>(diarista, HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/pendentes")

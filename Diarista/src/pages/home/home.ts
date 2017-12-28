@@ -7,6 +7,7 @@ import { IonicPage, NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  pageTitle: string = 'Quem sou eu?';
 
   constructor(public navCtrl: NavController) { }
 

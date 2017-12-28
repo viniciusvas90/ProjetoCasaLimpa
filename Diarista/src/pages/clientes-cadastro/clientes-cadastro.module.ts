@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ClientesCadastroPage } from './clientes-cadastro';
 import { Camera } from '@ionic-native/camera';
 import { ClientesProvider } from "../../providers/clientes/clientes";
+import { ComponentsModule } from "../../components/components.module";
 
 class CameraMock extends Camera {
   getPicture(options) {
@@ -19,6 +20,7 @@ class CameraMock extends Camera {
   ],
   imports: [
     IonicPageModule.forChild(ClientesCadastroPage),
+    ComponentsModule,
   ],
   providers: [
     { provide: Camera, useClass: CameraMock },

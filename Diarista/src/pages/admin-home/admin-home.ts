@@ -15,7 +15,7 @@ import { MyHeaderComponent } from "../../components/my-header/my-header";
   templateUrl: 'admin-home.html',
 })
 export class AdminHomePage {
-
+  pageTitle: string = 'Admin Home';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

@@ -15,7 +15,6 @@ export class UtilsProvider {
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private usersProvider: UsersProvider,
     private popoverCtrl: PopoverController,
     public events: Events
   ) { }

@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { DiaristasCadastroPage } from './diaristas-cadastro';
 import { Camera } from '@ionic-native/camera';
 import { DiaristasProvider } from '../../providers/diaristas/diaristas';
+import { ComponentsModule } from "../../components/components.module";
 
 
 class CameraMock extends Camera {
@@ -21,6 +22,7 @@ class CameraMock extends Camera {
   ],
   imports: [
     IonicPageModule.forChild(DiaristasCadastroPage),
+    ComponentsModule,
   ],
   providers: [
     { provide: Camera, useClass: CameraMock},

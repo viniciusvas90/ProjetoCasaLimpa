@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'diarista-config.html',
 })
 export class DiaristaConfigPage {
+  pageTitle: string = 'Configurações';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

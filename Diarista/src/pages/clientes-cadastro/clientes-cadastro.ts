@@ -12,6 +12,7 @@ import { UtilsProvider } from '../../providers/utils/utils';
   templateUrl: 'clientes-cadastro.html',
 })
 export class ClientesCadastroPage {
+  pageTitle: string = 'Sou um(a) Diarista';
 
   cliente: Cliente;
   public unregisterBackButtonAction: any;

@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { IonicPage, Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'options',

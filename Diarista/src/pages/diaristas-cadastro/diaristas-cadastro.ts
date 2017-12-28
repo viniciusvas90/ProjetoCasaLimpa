@@ -14,6 +14,7 @@ import { UtilsProvider } from '../../providers/utils/utils';
   templateUrl: 'diaristas-cadastro.html',
 })
 export class DiaristasCadastroPage {
+  pageTitle: string = 'Sou um(a) Diarista';
   diarista: Diarista;
   passo = 1;
   recomendacao = { nome: "", contato: "" };

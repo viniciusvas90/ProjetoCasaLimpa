@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UtilsProvider } from "../../providers/utils/utils";
 
 @Component({
   selector: 'my-header',
@@ -6,11 +7,10 @@ import { Component } from '@angular/core';
 })
 export class MyHeaderComponent {
 
-  title: string;
+  @Input() title: string;
 
-  constructor() {
+  constructor(public utils: UtilsProvider) {
     console.log('MyHeaderComponent Component');
-    this.title = 'teste';
   }
 
 }
