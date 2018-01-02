@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * @author Vinicius
  */
 @RepositoryRestResource(collectionResourceRel = "cliente", path = "cliente")
-public interface IClienteRepository extends PagingAndSortingRepository<Cliente, Integer> {
+public interface IClienteRepository extends PagingAndSortingRepository<Cliente, Integer>, IClienteRepositoryCustom {
 
     List<Cliente> findByAutorizadoOrderByDataCadastro(Boolean autorizado);
 

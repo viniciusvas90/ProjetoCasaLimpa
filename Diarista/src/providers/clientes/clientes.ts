@@ -61,6 +61,26 @@ export class ClientesProvider {
     });
   }
 
+  public storeCliente(idUsuario: number) : Promise<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
+
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URI + '/clientes/' + idUsuario, { headers: headers })
+        .subscribe((result: any) => {
+          let cliente: Cliente = JSON.parse(result._body);
+          this.save('cliente', cliente).then(() => {
+            console.log('cliente guardado', cliente);
+            resolve();
+          });
+        },
+        (error) => {
+          console.error(JSON.stringify(error));
+        });
+    });
+  }
+
   public insert(cliente: Cliente) {
     //let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
     return this.save('cliente', cliente  );

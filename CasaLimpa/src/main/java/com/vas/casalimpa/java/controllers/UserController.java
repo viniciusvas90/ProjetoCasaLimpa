@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final IUsuarioRepository usuarioRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(IUsuarioRepository usuarioRepository,
@@ -42,7 +42,7 @@ public class UserController {
     
     @GetMapping(value = "/logado/{email:.+}")
     public ResponseEntity<Usuario> usuarioLogado(@PathVariable String email) {
-        return new ResponseEntity<Usuario>(this.usuarioRepository.findUsuarioByEmail(email), HttpStatus.OK);
+        return new ResponseEntity<>(this.usuarioRepository.findUsuarioByEmail(email), HttpStatus.OK);
     }
     
 }

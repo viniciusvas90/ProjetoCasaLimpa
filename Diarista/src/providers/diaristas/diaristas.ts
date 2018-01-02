@@ -81,4 +81,24 @@ export class DiaristasProvider {
         });
     });
   }
+
+  public storeDiarista(idUsuario: number) : Promise<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
+
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URI + '/diaristas/' + idUsuario, { headers: headers })
+        .subscribe((result: any) => {
+          let diarista: Diarista = JSON.parse(result._body);
+          this.save('diarista', diarista).then(() => {
+            console.log('diarista guardado', diarista);
+            resolve();
+          });
+        },
+        (error) => {
+          console.error(JSON.stringify(error));
+        });
+    });
+  }
 }
