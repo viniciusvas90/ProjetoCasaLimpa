@@ -4,18 +4,24 @@ import { IonicModule } from "ionic-angular";
 import { OptionsComponent } from './options/options';
 import { MyHeaderComponent } from './my-header/my-header';
 import { MyModalHeaderComponent } from './my-modal-header/my-modal-header';
+import { DiaristasDadosComponent } from './diaristas-dados/diaristas-dados';
+import { ClientesDadosComponent } from './clientes-dados/clientes-dados';
 
 @NgModule({
   declarations: [
     OptionsComponent,
     MyHeaderComponent,
-    MyModalHeaderComponent
+    MyModalHeaderComponent,
+    DiaristasDadosComponent,
+    ClientesDadosComponent
   ],
   imports: [IonicModule],
   exports: [
     OptionsComponent,
     MyHeaderComponent,
-    MyModalHeaderComponent
+    MyModalHeaderComponent,
+    DiaristasDadosComponent,
+    ClientesDadosComponent
   ],
   entryComponents: [
     MyHeaderComponent,

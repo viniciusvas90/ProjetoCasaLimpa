@@ -7,11 +7,10 @@
     "\\src\\components\\my-modal-header",
     "\\src\\pages",
     "\\src\\pages\\admin-user-verification-details",
-    "\\src\\pages\\clientes-imoveis-cadastro",
+    "\\src\\pages\\clientes-home",
     "\\src\\providers",
-    "\\src\\providers\\clientes",
-    "\\src\\providers\\diaristas"
+    "\\src\\providers\\users"
   ],
-  "SelectedNode": "\\src\\components\\my-modal-header\\my-modal-header.ts",
+  "SelectedNode": "\\src\\pages\\admin-user-verification-details\\admin-user-verification-details.html",
   "PreviewInSolutionExplorer": false
 }

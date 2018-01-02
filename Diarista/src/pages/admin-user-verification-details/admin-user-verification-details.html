@@ -1,14 +1,19 @@
-<!--
-  Generated template for the AdminUserVerificationDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <my-modal-header [title]="pageTitle" (clicouFechar)="fechar()"></my-modal-header>
 </ion-header>
 
 
 <ion-content padding>
-  {{diarista.nome}}{{cliente.nome}}
+  <diaristas-dados [diarista]="diarista" *ngIf="diarista"></diaristas-dados>
+  <clientes-dados [cliente]="cliente" *ngIf="cliente"></clientes-dados>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button full (click)="autorizar()">Autorizar</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button full color="danger" (click)="negar()">Negar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -15,9 +15,6 @@ export class AdminUserVerificationDetailsPage {
   pageTitle: String = 'Detalhes do Usuário';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-    this.diarista = new Diarista();
-    this.cliente = new Cliente();
-
     if (navParams.get('tipo')=='d') {
       this.diarista = navParams.get('object');
     } else if (navParams.get('tipo') == 'c') {
@@ -25,12 +22,20 @@ export class AdminUserVerificationDetailsPage {
     }
   }
 
-  fechar() {
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminUserVerificationDetailsPage');
+  }
+
+  fechar(): void {
     this.viewCtrl.dismiss();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminUserVerificationDetailsPage');
+  autorizar(): void {
+    this.viewCtrl.dismiss();
+  }
+
+  negar(): void {
+    this.viewCtrl.dismiss();
   }
 
 }
