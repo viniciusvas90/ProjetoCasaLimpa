@@ -99,10 +99,10 @@ export class UsersProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       //headers.append('Authorization', 'SecretKeyToGenJWTs');
-
       this.http.post(this.API_URI + '/login', data, {headers: headers})
         .subscribe((result: any) => {
           let token = JSON.stringify(result.headers).split(':')[7].split('"')[1];
+          console.log('result', result);
           this.storeToken(token);
           resolve(result);
         },

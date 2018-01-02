@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Diarista } from "../../models/diarista";
 import { Cliente } from "../../models/cliente";
 
@@ -12,9 +12,9 @@ export class AdminUserVerificationDetailsPage {
 
   diarista: Diarista;
   cliente: Cliente;
-  teste: String = 'teste';
+  pageTitle: String = 'Detalhes do Usuário';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
     this.diarista = new Diarista();
     this.cliente = new Cliente();
 
@@ -23,6 +23,10 @@ export class AdminUserVerificationDetailsPage {
     } else if (navParams.get('tipo') == 'c') {
       this.cliente = navParams.get('object');
     }
+  }
+
+  fechar() {
+    this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {

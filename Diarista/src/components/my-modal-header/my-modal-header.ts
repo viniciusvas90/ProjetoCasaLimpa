@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'my-modal-header',
@@ -6,11 +6,15 @@ import { Component } from '@angular/core';
 })
 export class MyModalHeaderComponent {
 
-  text: string;
+  @Input() title: string;
+  @Output() clicouFechar = new EventEmitter();
 
   constructor() {
     console.log('Hello MyModalHeaderComponent Component');
-    this.text = 'Hello World';
+  }
+
+  public fechar(): void {
+    this.clicouFechar.emit();
   }
 
 }

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { IonicModule } from "ionic-angular";
+
 import { OptionsComponent } from './options/options';
 import { MyHeaderComponent } from './my-header/my-header';
-import { IonicModule } from "ionic-angular";
 import { MyModalHeaderComponent } from './my-modal-header/my-modal-header';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MyModalHeaderComponent } from './my-modal-header/my-modal-header';
   ],
   entryComponents: [
     MyHeaderComponent,
+    MyModalHeaderComponent,
     OptionsComponent
   ]
 })
