@@ -8,6 +8,6 @@ import com.vas.casalimpa.java.data.model.Cliente;
  */
 public interface IClienteRepositoryCustom {
     
-    Cliente findByIdUsuario(int idUsuario);
+    Cliente findByUsuario(int idUsuario);
 
 }

@@ -41,10 +41,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DiaristaController {
 
     private final IDiaristaRepository diaristaRepository;
-    private final IDiaristaRecomendacaoRepository diaristaRecomendacaoRepository;
-    private final IEnderecoRepository enderecoRepository;
     private final IUsuarioRepository usuarioRepository;
-    private final String caminho = "fotos"+File.separator+"diaristas"+File.separator;
+    private final String caminho = "fotos" + File.separator + "diaristas" + File.separator;
 
     @Autowired
     public DiaristaController(
@@ -54,8 +52,6 @@ public class DiaristaController {
             IUsuarioRepository usuarioRepository
     ) {
         this.diaristaRepository = diaristaRepository;
-        this.diaristaRecomendacaoRepository = diaristaRecomendacaoRepository;
-        this.enderecoRepository = enderecoRepository;
         this.usuarioRepository = usuarioRepository;
     }
 
@@ -66,19 +62,18 @@ public class DiaristaController {
         Usuario usuario = usuarioRepository.findOne(diarista.getUsuario().getId());
         usuario.setPerfil(PerfilEnum.Diarista.valorPerfil);
         usuarioRepository.save(usuario);
-        
+
         diarista.setNome(usuario.getNome());
         diarista.setUsuario(usuario);
-        enderecoRepository.save(diarista.getEndereco());
-        diarista = diaristaRepository.save(diarista);
         for (DiaristaRecomendacao recomendacao : diarista.getRecomendacoes()) {
             recomendacao.setDiarista(diarista);
         }
-        diaristaRecomendacaoRepository.save(diarista.getRecomendacoes());
+        diarista.getEndereco().setDiarista(diarista);
+        diaristaRepository.save(diarista);
         this.salvarFoto(diarista.getFotoBase64Image(), "foto_" + diarista.getId() + "_" + diarista.getNome());
         return new ResponseEntity<>(diarista, HttpStatus.CREATED);
     }
-    
+
     @PutMapping(value = "/authorize")
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<Diarista> authorizeCliente(@RequestBody Diarista diarista) throws Exception {

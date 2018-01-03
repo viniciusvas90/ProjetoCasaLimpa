@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author Vinicius
  */
 @Entity
-public class AbstractNegacaoCadastro {
+public class NegacaoCadastro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

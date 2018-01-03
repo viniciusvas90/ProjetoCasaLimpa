@@ -6,7 +6,7 @@
 package com.vas.casalimpa.java.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vas.casalimpa.java.data.model.abstracts.AbstractNegacaoCadastro;
+import com.vas.casalimpa.java.data.model.abstracts.NegacaoCadastro;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author Vinicius
  */
 @Entity
-public class DiaristaNegacaoCadastro extends AbstractNegacaoCadastro {
+public class DiaristaNegacaoCadastro extends NegacaoCadastro {
     
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JsonIgnore

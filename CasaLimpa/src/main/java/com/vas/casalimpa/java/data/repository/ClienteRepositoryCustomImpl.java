@@ -15,7 +15,7 @@ public class ClienteRepositoryCustomImpl implements IClienteRepositoryCustom {
     EntityManager entityManager;
 
     @Override
-    public Cliente findByIdUsuario(int idUsuario) {
+    public Cliente findByUsuario(int idUsuario) {
         Query query = entityManager.createNativeQuery("select * from cliente where id_usuario = ? ");
         query.setParameter(1, idUsuario);
         return (Cliente) query.getSingleResult();

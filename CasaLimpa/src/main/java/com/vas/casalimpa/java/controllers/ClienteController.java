@@ -73,7 +73,7 @@ public class ClienteController {
 
     @PostMapping(value = "/imoveis")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<Imovel> createCliente(@RequestBody Imovel imovel) throws Exception {
+    public ResponseEntity<Imovel> createClienteImovel(@RequestBody Imovel imovel) throws Exception {
         imovel.setCliente(clienteRepository.findOne(imovel.getCliente().getId()));
         imovel = imovelRepository.save(imovel);
         return new ResponseEntity<>(imovel, HttpStatus.CREATED);
@@ -90,7 +90,7 @@ public class ClienteController {
 
     @GetMapping(value = "{idUsuario}")
     public ResponseEntity<Cliente> usuarioLogado(@PathVariable int idUsuario) throws Exception {
-        Cliente cliente = clienteRepository.findByIdUsuario(idUsuario);
+        Cliente cliente = clienteRepository.findByUsuario(idUsuario);
         cliente.setFotoBase64Image(recuperarFoto("foto_" + cliente.getId() + "_" + cliente.getNome()));
         return new ResponseEntity<>(cliente, HttpStatus.OK);
     }

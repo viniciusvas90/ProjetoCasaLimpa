@@ -7,6 +7,7 @@ package com.vas.casalimpa.java.data.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,7 +49,7 @@ public class Diarista {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAutorizado;
 
-    @OneToMany(mappedBy = "diarista")
+    @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
     private Set<DiaristaRecomendacao> recomendacoes;
 
     @OneToMany(mappedBy = "diarista", cascade = CascadeType.ALL)
@@ -64,6 +65,10 @@ public class Diarista {
     
     @Transient
     private String fotoBase64Image;
+
+    public Diarista() {
+        this.setRecomendacoes(new HashSet<DiaristaRecomendacao>());
+    }
 
     @PrePersist
     void onInsert() {
