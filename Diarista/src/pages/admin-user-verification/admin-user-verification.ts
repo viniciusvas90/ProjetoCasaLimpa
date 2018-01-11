@@ -73,7 +73,35 @@ export class AdminUserVerificationPage {
   }
 
   private openDetails(obj: any, tipo: string) {
+    let reload: boolean = false;
     let modal = this.modalCtrl.create('AdminUserVerificationDetailsPage', { object: obj, tipo: tipo });
+    modal.onDidDismiss((resposta) => {  
+      if (resposta === true) {
+        if (tipo == 'd') {
+          console.log('autorizando diarista');
+          this.diaristasProvider.autorizar(obj).then(() => {
+            reload = true;
+          }).then(() => {
+            reload = true;
+          });
+        }
+        if (tipo == 'c') {
+          console.log('autorizando cliente');
+        }
+      } else if (resposta === false) {
+        if (tipo == 'd') {
+          console.log('negando diarista');
+        }
+        if (tipo == 'c') {
+          console.log('negando cliente');
+        }
+      } else {
+        reload = true;
+      }
+      //while (!reload) { }
+      this.getAllDiaristasPendant();
+      this.getAllClientesPendant();
+    });
     modal.present();
   }
 

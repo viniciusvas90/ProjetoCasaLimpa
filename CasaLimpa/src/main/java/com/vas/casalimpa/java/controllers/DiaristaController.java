@@ -79,8 +79,8 @@ public class DiaristaController {
     public ResponseEntity<Diarista> authorizeCliente(@RequestBody Diarista diarista) throws Exception {
         diarista = diaristaRepository.findOne(diarista.getId());
         diarista.setAutorizado(Boolean.TRUE);
-        diaristaRepository.save(diarista);
-        return new ResponseEntity<>(diarista, HttpStatus.ACCEPTED);
+        //diaristaRepository.save(diarista);
+        return new ResponseEntity<>(diarista, HttpStatus.OK);
     }
 
     @GetMapping(value = "/pendentes")

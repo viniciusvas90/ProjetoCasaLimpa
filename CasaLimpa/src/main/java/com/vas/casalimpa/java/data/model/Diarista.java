@@ -5,6 +5,8 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import com.vas.casalimpa.java.CustomDateDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,19 +34,29 @@ public class Diarista {
     @Id
     @GeneratedValue()
     private int id;
+    
     @Column(nullable = false)
     private String nome;
+    
     @Column(nullable = false, unique = true)
     private String cpf;
+    
     @Column(nullable = false, unique = true)
     private String rg;
+    
     @Column(nullable = false)
     private String telefone;
+    
     private String sindicato;
+    
     private Boolean autorizado;
+    
+    @JsonDeserialize(using = CustomDateDeserialize.class)
     @Column(updatable = false, nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
+    
+    @JsonDeserialize(using = CustomDateDeserialize.class)
     @Column(insertable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAutorizado;
@@ -62,7 +74,7 @@ public class Diarista {
     @OneToOne(optional = true)
     @JoinColumn(unique = true)
     private Usuario usuario;
-    
+
     @Transient
     private String fotoBase64Image;
 
@@ -74,7 +86,7 @@ public class Diarista {
     void onInsert() {
         this.dataCadastro = new Date();
     }
-    
+
     @PreUpdate
     void onUpdate() {
         if (this.autorizado) {
@@ -153,7 +165,7 @@ public class Diarista {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
+
     public String getDataCadastro() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return sdf.format(dataCadastro);
@@ -163,7 +175,7 @@ public class Diarista {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return dataAutorizado != null ? sdf.format(dataAutorizado) : null;
     }
-        
+
     public void setDataAutorizado(Date dataAutorizado) {
         this.dataAutorizado = dataAutorizado;
     }

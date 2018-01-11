@@ -14,8 +14,12 @@ export class AdminUserVerificationDetailsPage {
   cliente: Cliente;
   pageTitle: String = 'Detalhes do Usuário';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-    if (navParams.get('tipo')=='d') {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController
+  ) {
+    if (navParams.get('tipo') == 'd') {
       this.diarista = navParams.get('object');
     } else if (navParams.get('tipo') == 'c') {
       this.cliente = navParams.get('object');
@@ -31,11 +35,11 @@ export class AdminUserVerificationDetailsPage {
   }
 
   autorizar(): void {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(true);
   }
 
   negar(): void {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(false);
   }
 
 }

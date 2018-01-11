@@ -5,6 +5,8 @@
  */
 package com.vas.casalimpa.java.data.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.vas.casalimpa.java.CustomDateDeserialize;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
@@ -32,15 +34,23 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
     @Column(nullable = false)
     private String nome;
+    
     @Column(nullable = false, unique = true)
     private String cpf;
+    
     private String telefone;
-    private Boolean autorizado;
+    
+    private Boolean autorizado;    
+    
+    @JsonDeserialize(using = CustomDateDeserialize.class)
     @Column(updatable = false, nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataCadastro;
+    private Date dataCadastro;    
+    
+    @JsonDeserialize(using = CustomDateDeserialize.class)
     @Column(insertable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAutorizado;

@@ -18,14 +18,14 @@ export class DiaristasProvider {
   private API_URI = 'http://localhost:8100/api';
 
   constructor(private http: Http,
-              private storage: Storage,
-              private usersProvider: UsersProvider) {
+    private storage: Storage,
+    private usersProvider: UsersProvider) {
     console.log('DiaristasProvider');
   }
 
   public insert(diarista: Diarista) {
     //let key = this.datepipe.transform(new Date(), "ddMMyyyyHHmmss");
-    return this.save('diarista', diarista  );
+    return this.save('diarista', diarista);
   }
 
   public update(key: string, diarista: Diarista) {
@@ -40,7 +40,7 @@ export class DiaristasProvider {
     return this.storage.remove(key);
   }
 
-  public loadDiaristaStorage() : Promise<any> {
+  public loadDiaristaStorage(): Promise<any> {
     return this.storage.get('diarista');
   }
 
@@ -49,18 +49,18 @@ export class DiaristasProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', 'Bearer '+this.usersProvider.getToken());
+      headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
       this.usersProvider.getUsuarioStorage().then((user: Usuario) => {
         diarista.usuario = user;
-        this.http.post(this.API_URI+"/diaristas", diarista, {headers: headers})
-        .subscribe((result: any) => {
-          this.usersProvider.storeUser(user.email);
-          resolve(result);
-        },
-        (error) => {
-          reject(error);
-        });
-      });      
+        this.http.post(this.API_URI + "/diaristas", diarista, { headers: headers })
+          .subscribe((result: any) => {
+            this.usersProvider.storeUser(user.email);
+            resolve(result);
+          },
+          (error) => {
+            reject(error);
+          });
+      });
     });
   }
 
@@ -82,7 +82,7 @@ export class DiaristasProvider {
     });
   }
 
-  public storeDiarista(idUsuario: number) : Promise<any> {
+  public storeDiarista(idUsuario: number): Promise<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
@@ -98,6 +98,25 @@ export class DiaristasProvider {
         },
         (error) => {
           console.error(JSON.stringify(error));
+        });
+    });
+  }
+
+  autorizar(diarista: Diarista) {
+    console.log('autorizar(data)', diarista);
+    return new Promise((resolve, reject) => {
+      console.log(this.usersProvider.getToken());
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', 'Bearer ' + this.usersProvider.getToken());
+      this.http.put(this.API_URI + "/diaristas/authorize", diarista, { headers: headers })
+        .subscribe((result: any) => {
+          console.log(result);
+          resolve(result);
+        },
+        (error) => {
+          console.error(error);
+          reject(error);
         });
     });
   }
